@@ -1,8 +1,8 @@
 import React from 'react';
 import { FormInstance } from 'antd/lib/form';
-import { Modal, Form, Input, Button, message } from 'antd';
+import { Modal, Form, Input, Button, message, InputNumber } from 'antd';
 
-import TypeSelect from './TypeSelect';
+// import TypeSelect from './TypeSelect';
 
 import { TableListItem } from '../data';
 
@@ -63,7 +63,7 @@ const UpdateForm: React.FC<UpdateFormPorps> = (props) => {
           // type: formVals.type,
         }}
       >
-        <Form.Item
+        {/* <Form.Item
           label='位置'
           name='type'
           rules={[
@@ -74,7 +74,7 @@ const UpdateForm: React.FC<UpdateFormPorps> = (props) => {
           ]}
         >
           <TypeSelect placeholder='请选择' />
-        </Form.Item>
+        </Form.Item> */}
         <Form.Item
           label='名称'
           name='name'
@@ -113,7 +113,7 @@ const UpdateForm: React.FC<UpdateFormPorps> = (props) => {
             },
           ]}
         >
-          <Input placeholder='请输入套餐时长(分钟)' />
+          <InputNumber min={1} max={9999} defaultValue={30} placeholder='请输入套餐时长(分钟)' />
         </Form.Item>
 
         <Form.Item
@@ -130,7 +130,7 @@ const UpdateForm: React.FC<UpdateFormPorps> = (props) => {
             },
           ]}
         >
-          <Input placeholder='请输入套餐金额' />
+          <InputNumber min={1} max={9999} defaultValue={30} placeholder='请输入套餐金额' />
         </Form.Item>
       </Form>
     </Modal>

@@ -25,14 +25,14 @@ const universalLayoutRotes: IRouter[] = [
     },
     redirect: '/home/workplace',
     children: [
-      {
+      /* {
         path: 'workplace',
         meta: {
           icon: 'control',
           title: 'universal-layout.menu.home.workplace',
         },
         component: lazy(() => import('@/pages/Home')),
-      },
+      }, */
       {
         path: 'table',
         meta: {
@@ -78,7 +78,7 @@ const universalLayoutRotes: IRouter[] = [
       // },
     ],
   },
-  {
+  /* {
     path: '/component',
     redirect: '/component/icon/svg',
     meta: {
@@ -271,7 +271,7 @@ const universalLayoutRotes: IRouter[] = [
         component: lazy(() => import('@/pages/roles/test')),
       },
     ],
-  },
+  }, */
 ];
 
 export default universalLayoutRotes;

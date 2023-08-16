@@ -22,7 +22,7 @@ export async function updateData(id: number, params: Omit<TableListItem, 'id'>):
   return request({
     url: `/consumePackage/update`,
     method: 'POST',
-    data: params,
+    data: { id, ...params },
   });
 }
 
@@ -37,6 +37,13 @@ export async function removeData(id: string): Promise<any> {
   });
 }
 
-export async function detailData(id: number): Promise<any> {
-  return request({ url: `/consumePackage/update/${id}` });
+export async function detailData(id: string): Promise<any> {
+  const bodyFormData = new FormData();
+  bodyFormData.append('id', id);
+  return request({
+    url: `/consumePackage/get`,
+    method: 'POST',
+    data: bodyFormData,
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
 }

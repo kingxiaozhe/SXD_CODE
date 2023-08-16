@@ -9,7 +9,7 @@ export default defineConfig(({ command, mode }) => {
   const root = process.cwd();
 
   const env = loadEnv(mode, root);
-  const { VITE_APP_PORT, VITE_APP_MOCK } = env;
+  const { VITE_APP_PORT, VITE_APP_MOCK, VITE_SERVICE_DOMAIN, VITE_SERVICE_PORT } = env;
 
   const isBuild = command === 'build';
 
@@ -48,7 +48,7 @@ export default defineConfig(({ command, mode }) => {
           // 用于开发环境下的转发请求http://192.168.43.59:8090/api/consumePackage/list
           // 更多请参考：https://vitejs.dev/config/#server-proxy
           // target: 'http://192.168.43.59:8090',
-          target: 'http://192.168.6.140:8090',
+          target: `${VITE_SERVICE_DOMAIN}:${VITE_SERVICE_PORT}`,
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/data/, '/api'),
         },

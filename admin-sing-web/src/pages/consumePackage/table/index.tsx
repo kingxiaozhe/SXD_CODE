@@ -69,7 +69,7 @@ function App() {
   const detailUpdateData = async (id: number) => {
     setDetailUpdateLoading([id]);
 
-    const response: ResponseData<TableListItem> = await detailData(id);
+    const response: ResponseData<TableListItem> = await detailData(id.toString());
     const { data } = response;
     setUpdateData({
       ...data,
@@ -178,7 +178,7 @@ function App() {
               <Radio.Button value='header'>头部</Radio.Button>
               <Radio.Button value='footer'>底部</Radio.Button>
             </Radio.Group> */}
-            <Input.Search placeholder='请输入' style={{ width: '270px', marginLeft: '16px' }} onSearch={() => ({})} />
+            {/* <Input.Search placeholder='请输入' style={{ width: '270px', marginLeft: '16px' }} onSearch={() => ({})} /> */}
           </div>
         }
       >
