@@ -63,5 +63,21 @@
     "Ant Design",
     "vite",
     "Recoil"
-  ]
+  ],
+  "proxy": {
+    "/api": {
+      "target": "http://192.168.43.59/8090",
+      "changeOrigin": true,
+      "pathRewrite": {
+        "^/api": "/"
+      }
+    },
+    "/rest": {
+      "target": "http://localhost/rest",
+      "changeOrigin": true,
+      "pathRewrite": {
+        "^/api": "/"
+      }
+    }
+  }
 }

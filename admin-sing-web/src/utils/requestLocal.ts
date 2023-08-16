@@ -78,7 +78,7 @@ const errorHandler = (error: any) => {
  * 配置request请求时的默认参数
  */
 const request = axios.create({
-  baseURL: import.meta.env.VITE_APP_APIHOST || '', // url = api url + request url
+  baseURL: import.meta.env.VITE_APP_APIHOST_LOCAL || '', // url = api url + request url
   withCredentials: false, // 当跨域请求时发送cookie
   timeout: 0, // 请求超时时间,5000(单位毫秒) / 0 不做限制
 });
@@ -124,13 +124,13 @@ request.interceptors.response.use(
     const { code } = res;
 
     // 自定义状态码验证
-    // if (code !== 0) {
-    //   // eslint-disable-next-line prefer-promise-reject-errors
-    //   return Promise.reject({
-    //     response,
-    //     message: 'CustomError',
-    //   });
-    // }
+    if (code !== 0) {
+      // eslint-disable-next-line prefer-promise-reject-errors
+      return Promise.reject({
+        response,
+        message: 'CustomError',
+      });
+    }
 
     return response;
   },

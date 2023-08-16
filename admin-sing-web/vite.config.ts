@@ -43,16 +43,16 @@ export default defineConfig(({ command, mode }) => {
     server: {
       host: true,
       port: Number(VITE_APP_PORT || 3000),
-      /*
       proxy: {
-        '/api': {
-          // 用于开发环境下的转发请求
+        '/api/consumePackage': {
+          // 用于开发环境下的转发请求http://192.168.43.59:8090/api/consumePackage/list
           // 更多请参考：https://vitejs.dev/config/#server-proxy
-          target: 'https://vitejs.dev/config/#server-proxy',
+          // target: 'http://192.168.43.59:8090',
+          target: 'http://192.168.6.140:8090',
           changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/data/, '/api'),
         },
       },
-      */
     },
     resolve: {
       alias: [

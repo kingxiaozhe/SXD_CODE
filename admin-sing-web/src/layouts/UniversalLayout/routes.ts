@@ -34,41 +34,48 @@ const universalLayoutRotes: IRouter[] = [
         component: lazy(() => import('@/pages/Home')),
       },
       {
-        path: 'custombreadcrumbs',
+        path: 'table',
         meta: {
-          icon: 'edit',
-          title: 'universal-layout.menu.home.custom-breadcrumbs',
-          breadcrumb: [
-            {
-              title: 'universal-layout.menu.home.custom-breadcrumbs',
-              path: '/home/custombreadcrumbs',
-            },
-            {
-              title: 'universal-layout.menu.home',
-              path: '/home',
-            },
-            {
-              title: 'universal-layout.menu.home.custom-breadcrumbs.liqingsong.cc',
-              path: 'http://liqingsong.cc',
-            },
-          ],
-          tabNavCloseBefore: (close: () => void): void => {
-            // eslint-disable-next-line no-alert
-            if (window.confirm('确认关闭吗')) {
-              close();
-            }
-          },
+          title: 'universal-layout.menu.home.consumePackage.list',
         },
-        component: lazy(() => import('@/pages/CustomBreadcrumbs')),
+        component: lazy(() => import('@/pages/consumePackage/table')),
       },
-      {
-        path: 'http://admin-antd-react.liqingsong.cc/',
-        meta: {
-          icon: 'detail',
-          title: 'universal-layout.menu.home.docs',
-          selectLeftMenu: '/home',
-        },
-      },
+      // {
+      //   path: 'custombreadcrumbs',
+      //   meta: {
+      //     icon: 'edit',
+      //     title: 'universal-layout.menu.home.custom-breadcrumbs',
+      //     breadcrumb: [
+      //       {
+      //         title: 'universal-layout.menu.home.custom-breadcrumbs',
+      //         path: '/home/custombreadcrumbs',
+      //       },
+      //       {
+      //         title: 'universal-layout.menu.home',
+      //         path: '/home',
+      //       },
+      //       {
+      //         title: 'universal-layout.menu.home.custom-breadcrumbs.liqingsong.cc',
+      //         path: 'http://liqingsong.cc',
+      //       },
+      //     ],
+      //     tabNavCloseBefore: (close: () => void): void => {
+      //       // eslint-disable-next-line no-alert
+      //       if (window.confirm('确认关闭吗')) {
+      //         close();
+      //       }
+      //     },
+      //   },
+      //   component: lazy(() => import('@/pages/CustomBreadcrumbs')),
+      // },
+      // {
+      //   path: 'http://admin-antd-react.liqingsong.cc/',
+      //   meta: {
+      //     icon: 'detail',
+      //     title: 'universal-layout.menu.home.docs',
+      //     selectLeftMenu: '/home',
+      //   },
+      // },
     ],
   },
   {

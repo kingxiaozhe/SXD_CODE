@@ -35,4 +35,6 @@ export default {
   'universal-layout.menu.roles.all': '用戶都有權限',
   'universal-layout.menu.roles.user': 'Users有權限',
   'universal-layout.menu.roles.test': 'Tests有權限',
+
+  'universal-layout.menu.home.consumePackage.list': '套餐列表',
 };

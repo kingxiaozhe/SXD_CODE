@@ -35,4 +35,6 @@ export default {
   'universal-layout.menu.roles.all': 'All users have permissions',
   'universal-layout.menu.roles.user': 'Users have permission',
   'universal-layout.menu.roles.test': 'Tests have permission',
+
+  'universal-layout.menu.home.consumePackage.list': 'Consume Package List',
 };
