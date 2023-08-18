@@ -1,9 +1,41 @@
-import { cdnBase } from '../config/index';
+import { cdnBase,REQUEST_CONFIG } from '../config/index';
 const imgPrefix = cdnBase;
 
 const defaultDesc = [`${imgPrefix}/goods/details-1.png`];
-
-const allGoods = [
+export const allGoods =[{
+    "id": 1,
+    "name": "19.9元30分钟哟",
+    "title": "19.9元30分钟哟",
+    "duration": 34,
+    "amount": 22.9,
+    minSalePrice:22.9,
+    maxLinePrice:22.9,
+    // primaryImage: 'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09a.png',
+    spuTagList: [{ id: '13001', title: '限时抢购', image: null }],
+  },
+  {
+    "id": 2,
+    "name": "特惠9.9元20分钟",
+    "title": "特惠9.9元20分钟",
+    "duration": 20,
+    "amount": 9.9,
+    minSalePrice:9.9,
+    maxLinePrice:9.9,
+    // primaryImage: 'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09a.png',
+    spuTagList: [{ id: '13001', title: '限时抢购', image: null }],
+  },
+  {
+    "id": 3,
+    "name": "29.9元1小时",
+    "title": "29.9元1小时",
+    "duration": 60,
+    "amount": 29.9,
+    minSalePrice:29.9,
+    maxLinePrice:29.9,
+    // primaryImage: 'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09a.png',
+    spuTagList: [{ id: '13001', title: '限时抢购', image: null }],
+  }]
+const allGoods1 = [
   {
     saasId: '88888888',
     storeId: '1000',
@@ -14,6 +46,10 @@ const allGoods = [
       'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09a.png',
       'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09b.png',
     ],
+    "id": 1,
+    "name": "19.9元30分钟哟",
+    "duration": 34,
+    "amount": 22.9,
     video: null,
     available: 1,
     minSalePrice: 29800,
@@ -1896,16 +1932,36 @@ const allGoods = [
   },
 ];
 
+export async function getGoodsListByService(){
+    return new Promise((resolve, reject) => {
+        wx.request({
+            url: `${REQUEST_CONFIG.host}/api/consumePackage/list`,
+                // 请求的方法
+            method: 'POST', // 或 ‘POST’
+            data: {
+                "pageNum": 1,
+                "pageSize": 100
+            },
+          success: res => {
+            resolve(res.data.data.list)
+          },
+          fail: err => {
+            reject(err)
+          }
+        })
+      })
+}
+
 /**
  * @param {string} id
  * @param {number} [available] 库存, 默认1
  */
-export function genGood(id, available = 1) {
+export function genGood(currentGoods,id, available = 1) {
   const specID = ['135681624', '135681628'];
   if (specID.indexOf(id) > -1) {
-    return allGoods.filter((good) => good.spuId === id)[0];
+    return currentGoods.filter((good) => good.spuId === id)[0];
   }
-  const item = allGoods[id % allGoods.length];
+  const item = currentGoods[id % currentGoods.length];
   return {
     ...item,
     spuId: `${id}`,

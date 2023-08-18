@@ -12,7 +12,7 @@
       bind:tap="onClickTop"
     />
   </t-cell-group>
-  <view class="order-group__content">
+  <!-- <view class="order-group__content" >
     <view
       class="order-group__item"
       wx:for="{{orderTagInfos}}"
@@ -33,5 +33,5 @@
       </view>
       <view class="order-group__item__title title-class">{{item.title}}</view>
     </view>
-  </view>
+  </view> -->
 </view>

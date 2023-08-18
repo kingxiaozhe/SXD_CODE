@@ -1,27 +1,28 @@
 import { fetchUserCenter } from '../../services/usercenter/fetchUsercenter';
 import Toast from 'tdesign-miniprogram/toast/index';
+import formData from '../../common/formData';
 
 const menuData = [
-  [
-    {
-      title: '收货地址',
-      tit: '',
-      url: '',
-      type: 'address',
-    },
-    {
-      title: '优惠券',
-      tit: '',
-      url: '',
-      type: 'coupon',
-    },
-    {
-      title: '积分',
-      tit: '',
-      url: '',
-      type: 'point',
-    },
-  ],
+//   [
+//     {
+//       title: '收货地址',
+//       tit: '',
+//       url: '',
+//       type: 'address',
+//     },
+//     {
+//       title: '优惠券',
+//       tit: '',
+//       url: '',
+//       type: 'coupon',
+//     },
+//     {
+//       title: '积分',
+//       tit: '',
+//       url: '',
+//       type: 'point',
+//     },
+//   ],
   [
     {
       title: '帮助中心',
@@ -114,11 +115,54 @@ Page({
   fetUseriInfoHandle() {
     fetchUserCenter().then(
       ({
-        userInfo,
+        // userInfo,
         countsData,
         orderTagInfos: orderInfo,
         customerServiceInfo,
       }) => {
+        const _this = this;
+        wx.login({
+            success(res) {
+              if (res.code) {
+                const param = new formData();
+                param.append('code', res.code);
+                let data = param.getData();
+                wx.request({
+                    url: 'http://192.168.43.59:8090/api/userInfo/getOpenId',
+                    // 请求的方法
+                    method: 'POST', // 或 ‘POST’
+                    // 设置请求头，不能设置 Referer
+                    header: {
+                            'content-type': data.contentType // 默认值
+                    },
+                    data: data.buffer,
+                    // 请求成功时的处理
+                    success: function (res) {
+                        // 一般在这一打印下看看是否拿到数据
+                        console.log(res.data)
+                    },
+                    // 请求失败时的一些处理
+                    fail: function () {
+                        wx.showToast({
+                            icon: "none",
+                            mask: true,
+                            title: "接口调用失败，请稍后再试。",
+                        });
+                    }
+                });
+                  wx.getUserInfo({
+                    success: function(res) {
+                      const userInfo = res.userInfo;
+                      _this.setData({
+                          userInfo,
+                      });
+                    }
+                  })
+              } else {
+                console.log('登录失败！' + res.errMsg);
+              }
+            }
+          });
         // eslint-disable-next-line no-unused-expressions
         menuData?.[0].forEach((v) => {
           countsData.forEach((counts) => {
@@ -128,14 +172,14 @@ Page({
             }
           });
         });
-        const info = orderTagInfos.map((v, index) => ({
-          ...v,
-          ...orderInfo[index],
-        }));
+        // const info = orderTagInfos.map((v, index) => ({
+        //   ...v,
+        //   ...orderInfo[index],
+        // }));
         this.setData({
-          userInfo,
+        //   userInfo,
           menuData,
-          orderTagInfos: info,
+        //   orderTagInfos: info,
           customerServiceInfo,
           currAuthStep: 2,
         });

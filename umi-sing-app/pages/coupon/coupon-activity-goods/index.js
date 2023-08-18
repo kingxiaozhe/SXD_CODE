@@ -65,6 +65,7 @@ Page({
   goodClickHandle(e) {
     const { index } = e.detail;
     const { spuId } = this.data.goods[index];
+    debugger;
     wx.navigateTo({ url: `/pages/goods/details/index?spuId=${spuId}` });
   },
 

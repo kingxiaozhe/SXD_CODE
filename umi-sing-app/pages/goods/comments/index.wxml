@@ -39,12 +39,12 @@
 		  goodsDetailInfo="{{item.goodsDetailInfo || ''}}"
 		/>
 	</block>
-	<t-load-more
+	<!-- <t-load-more
 	  t-class="no-more"
 	  status="{{loadMoreStatus}}"
 	  no-more-text="没有更多了"
 	  color="#BBBBBB"
 	  failedColor="#FA550F"
-	/>
+	/> -->
 </view>
 
