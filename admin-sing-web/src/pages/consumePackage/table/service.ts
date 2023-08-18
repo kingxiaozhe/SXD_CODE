@@ -1,6 +1,6 @@
 import request from '@/utils/request';
 // import requestLocal from '@/utils/requestLocal';
-import { TableListQueryParams, TableListItem } from './data';
+import { TableListQueryParams, TableListItem, TokenConfig, GenerateConfig } from './data';
 
 export async function queryList(params?: TableListQueryParams): Promise<any> {
   return request({
@@ -15,6 +15,25 @@ export async function createData(params: Omit<TableListItem, 'id'>): Promise<any
     url: '/consumePackage/add',
     method: 'POST',
     data: params,
+  });
+}
+
+export async function getTokenData(params: TokenConfig): Promise<any> {
+  return request({
+    url: `/cgi-bin/token?grant_type=client_credential&appid=${params.appid}&secret=${params.secret}`,
+    method: 'GET',
+  });
+}
+
+export async function generateImage(params: GenerateConfig): Promise<any> {
+  return request({
+    url: `/wxa/getwxacodeunlimit?access_token=${params.token}`,
+    method: 'POST',
+    responseType: 'blob',
+    data: {
+      scene: params.scene,
+      // page: params.page,
+    },
   });
 }
 

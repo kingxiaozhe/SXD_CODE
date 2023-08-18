@@ -9,7 +9,7 @@ export default defineConfig(({ command, mode }) => {
   const root = process.cwd();
 
   const env = loadEnv(mode, root);
-  const { VITE_APP_PORT, VITE_APP_MOCK, VITE_SERVICE_DOMAIN, VITE_SERVICE_PORT } = env;
+  const { VITE_APP_PORT, VITE_APP_MOCK, VITE_SERVICE_DOMAIN, VITE_SERVICE_PORT, VITE_WX_DOMAIN } = env;
 
   const isBuild = command === 'build';
 
@@ -51,6 +51,16 @@ export default defineConfig(({ command, mode }) => {
           target: `${VITE_SERVICE_DOMAIN}:${VITE_SERVICE_PORT}`,
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/data/, '/api'),
+        },
+        '/api/cgi-bin': {
+          target: `${VITE_WX_DOMAIN}`,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, ''),
+        },
+        '/api/wxa': {
+          target: `${VITE_WX_DOMAIN}`,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, ''),
         },
       },
     },

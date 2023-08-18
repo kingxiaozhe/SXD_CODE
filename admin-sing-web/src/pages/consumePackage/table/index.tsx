@@ -1,10 +1,20 @@
 import { useEffect, useState } from 'react';
 import { Button, Card, Divider, FormInstance, Input, message, Modal, Radio, Table, Tag } from 'antd';
 import { ResponseData } from '@/utils/request';
-import { createData, detailData, queryList, removeData, updateData as updateDataService } from './service';
+import {
+  createData,
+  // createDeviceData,
+  getTokenData,
+  generateImage,
+  detailData,
+  queryList,
+  removeData,
+  updateData as updateDataService,
+} from './service';
 import { PaginationConfig, TableListItem, IResponseData } from './data';
 
 import CreateForm from './components/CreateForm';
+import DeviceForm from './components/DeviceForm';
 import UpdateForm from './components/UpdateForm';
 import { ColumnsType } from 'antd/lib/table';
 
@@ -99,6 +109,8 @@ function App() {
   // 新增
   const [createSubmitLoading, setCreateSubmitLoading] = useState<boolean>(false);
   const [createFormVisible, setCreateFormVisible] = useState<boolean>(false);
+  const [deviceSubmitLoading, setDeviceSubmitLoading] = useState<boolean>(false);
+  const [deviceFormVisible, setDeviceFormVisible] = useState<boolean>(false);
   const createSubmit = async (values: Omit<TableListItem, 'id'>, form: FormInstance) => {
     setCreateSubmitLoading(true);
 
@@ -109,6 +121,40 @@ function App() {
     getList(1);
 
     setCreateSubmitLoading(false);
+  };
+  // 根据设备号，输出设备二维码
+  const createDeviceSubmit = async (values: Omit<TableListItem, 'id'>) => {
+    setDeviceSubmitLoading(true);
+    // 当前小程序配置信息
+    const miniConfig = {
+      appid: 'wx61577d6c2f49df3c',
+      secret: '4a2768ac886f2980a5611ec92e413a92',
+    };
+    // 根据小程序配置信息获取小程序Token
+    const miniToken = await getTokenData(miniConfig);
+    generateImage({
+      token: miniToken.access_token,
+      scene: `device_id=${values.name}`,
+      page: 'pages/home/home',
+    })
+      .then((response) => {
+        const url = window.URL.createObjectURL(new Blob([response]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', `设备号[${values.name}]二维码.png`); // 你的文件名
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      })
+      .catch((error) => {
+        console.error('There was an error fetching the binary data: ', error);
+      });
+    // form.resetFields();
+    setDeviceFormVisible(false);
+    message.success('新增成功！');
+
+    setDeviceSubmitLoading(false);
   };
 
   const columns: ColumnsType<TableListItem> = [
@@ -167,9 +213,14 @@ function App() {
       <Card
         bordered={false}
         title={
-          <Button type='primary' onClick={() => setCreateFormVisible(true)}>
-            新增
-          </Button>
+          <>
+            <Button type='primary' onClick={() => setCreateFormVisible(true)}>
+              新增
+            </Button>
+            <Button className='otherBtn' type='primary' onClick={() => setDeviceFormVisible(true)}>
+              生成设备二维码
+            </Button>
+          </>
         }
         extra={
           <div>
@@ -201,6 +252,13 @@ function App() {
         visible={createFormVisible}
         onSubmit={createSubmit}
         onSubmitLoading={createSubmitLoading}
+      />
+
+      <DeviceForm
+        onCancel={() => setDeviceFormVisible(false)}
+        visible={deviceFormVisible}
+        onSubmit={createDeviceSubmit}
+        onSubmitLoading={deviceSubmitLoading}
       />
 
       {updateFormVisible && Object.keys(updateData).length > 0 ? (

@@ -21,7 +21,7 @@ const settings: SettingsType = {
 
   /* 以下是针对 UniversalLayout 扩展字段 */
   tabNavEnable: true,
-  tabNavHomePath: '/home/workplace',
+  tabNavHomePath: '/home/table',
   navMode: 'inline',
 };
 

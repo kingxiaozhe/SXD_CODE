@@ -22,9 +22,22 @@ export interface TableListItem {
   type?: string;
   duration?: string;
   amount?: string;
+  appid?: string;
+  secret?: string;
 }
 
 export interface IResponseData {
   list?: TableListItem[];
   total?: number;
+}
+
+export interface TokenConfig {
+  appid?: string;
+  secret?: string;
+}
+
+export interface GenerateConfig {
+  token?: string;
+  scene?: string;
+  page?: string;
 }

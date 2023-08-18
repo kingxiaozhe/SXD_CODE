@@ -20435,3 +20435,13 @@ export const areaData = [
     ],
   },
 ];
+
+
+export const miniProgramConfig = {
+    appId: "wx61577d6c2f49df3c",
+    AppSecret: "4a2768ac886f2980a5611ec92e413a92",
+}
+
+export const REQUEST_CONFIG = {
+    host: 'http://192.168.43.59:8090/'
+}

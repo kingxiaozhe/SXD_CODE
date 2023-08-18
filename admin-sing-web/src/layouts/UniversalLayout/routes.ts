@@ -23,16 +23,16 @@ const universalLayoutRotes: IRouter[] = [
       icon: 'home',
       title: 'universal-layout.menu.home',
     },
-    redirect: '/home/workplace',
+    redirect: '/home/table',
     children: [
-      /* {
-        path: 'workplace',
-        meta: {
-          icon: 'control',
-          title: 'universal-layout.menu.home.workplace',
-        },
-        component: lazy(() => import('@/pages/Home')),
-      }, */
+      // {
+      //   path: 'workplace',
+      //   meta: {
+      //     icon: 'control',
+      //     title: 'universal-layout.menu.home.workplace',
+      //   },
+      //   component: lazy(() => import('@/pages/Home')),
+      // },
       {
         path: 'table',
         meta: {
