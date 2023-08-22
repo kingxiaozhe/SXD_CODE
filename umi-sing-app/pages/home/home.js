@@ -7,6 +7,7 @@ import Toast from 'tdesign-miniprogram/toast/index';
 
 Page({
   data: {
+    deviceNo: '',
     imgSrcs: [],
     tabList: [],
     goodsList: [],
@@ -33,8 +34,14 @@ Page({
     this.getTabBar().init();
   },
 
-  onLoad() {
+  onLoad(query) {
     this.init();
+    const deviceNo = decodeURIComponent(query.deviceNo) // 获取到二维码原始链接内容
+    wx.setStorageSync('deviceNo', deviceNo); // 将获取到的设备号存储到本地缓存中
+    this.setData({
+        deviceNo
+    })
+    // const scancode_time = parseInt(query.scancode_time) // 获取用户扫码时间 UNIX 时间戳
   },
 
   onReachBottom() {
@@ -107,15 +114,19 @@ Page({
 
   goodListClickHandle(e) {
     const { index } = e.detail;
-    const { spuId } = this.data.goodsList[index];
+    const { id } = this.data.goodsList[index];
+    const {nickName} = wx.getStorageSync('userInfo');
+    const openId = wx.getStorageSync('openId');
+    const deviceNo = wx.getStorageSync('deviceNo');
     const params = {
-        deviceNo: 1,
+        deviceNo,
         orderDate: formatDateThis(new Date(),''),
-        packageId: 1,
+        packageId: id,
         payMode: "01",
         source: "01",
         token: Math.random().toString(36).slice(-8),
-        userId: '1'
+        userId: openId,
+        userName: nickName
     }
     wx.request({
         url: `${REQUEST_CONFIG.host}/api/consumeOrder/operate`,
@@ -127,6 +138,33 @@ Page({
         success: function (res) {
             // 一般在这一打印下看看是否拿到数据
             console.log(res.data)
+            const {data} = res;
+            const {appId,timeStamp,nonceStr,packageVal,signType,paySign} = data.data;
+            wx.requestPayment
+                (
+                    {   
+                        provider: 'wxpay',
+                        appId,
+                        timeStamp,
+                        nonceStr,
+                        package:packageVal,
+                        signType,paySign,
+                        "success":function(res){
+                            wx.showToast({
+                                title: '购买成功',
+                                icon: 'success',
+                                duration: 2000
+                              })
+                        },
+                        "fail":function(res){
+                            wx.showToast({
+                                title: '购买失败，请联系客服。',
+                                icon: 'error',
+                                duration: 2000
+                              })
+                        }
+                    }
+                )
         },
         // 请求失败时的一些处理
         fail: function () {
@@ -137,9 +175,6 @@ Page({
             });
         }
     });
-    // wx.navigateTo({
-    //   url: `/pages/goods/details/index?spuId=${spuId}`,
-    // });
   },
 
   goodListAddCartHandle() {

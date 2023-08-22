@@ -1,6 +1,7 @@
 import { fetchUserCenter } from '../../services/usercenter/fetchUsercenter';
 import Toast from 'tdesign-miniprogram/toast/index';
 import formData from '../../common/formData';
+import { REQUEST_CONFIG } from '../../config/index';
 
 const menuData = [
 //   [
@@ -128,7 +129,7 @@ Page({
                 param.append('code', res.code);
                 let data = param.getData();
                 wx.request({
-                    url: 'http://192.168.43.59:8090/api/userInfo/getOpenId',
+                    url: `${REQUEST_CONFIG.host}/api/userInfo/getOpenId`,
                     // 请求的方法
                     method: 'POST', // 或 ‘POST’
                     // 设置请求头，不能设置 Referer
@@ -140,6 +141,8 @@ Page({
                     success: function (res) {
                         // 一般在这一打印下看看是否拿到数据
                         console.log(res.data)
+                        const { data } = res.data;
+                        wx.setStorageSync('openId', data.openid); 
                     },
                     // 请求失败时的一些处理
                     fail: function () {
@@ -150,14 +153,17 @@ Page({
                         });
                     }
                 });
-                  wx.getUserInfo({
-                    success: function(res) {
-                      const userInfo = res.userInfo;
-                      _this.setData({
-                          userInfo,
-                      });
-                    }
-                  })
+                wx.getUserInfo({
+                success: function(res) {
+                    const userInfo = res.userInfo;
+                    _this.setData({
+                        userInfo,
+                    });
+                    //把用户信息存储到storage里
+                    wx.setStorageSync('userInfo', userInfo);
+                    console.log('userInfo',userInfo);
+                }
+                })
               } else {
                 console.log('登录失败！' + res.errMsg);
               }

@@ -55,6 +55,6 @@
     bind:addcart="goodListAddCartHandle"
   />
   <!-- <load-more list-is-empty="{{!goodsList.length}}" status="{{goodsListLoadStatus}}" bind:retry="onReTry" /> -->
-  <view class="current-machine-number">当前设备号为 0001.</view>
+  <view class="current-machine-number">当前设备号为 {{deviceNo}}</view>
   <t-toast id="t-toast" />
 </view>
