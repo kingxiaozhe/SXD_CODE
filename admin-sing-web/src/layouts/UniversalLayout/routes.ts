@@ -40,6 +40,13 @@ const universalLayoutRotes: IRouter[] = [
         },
         component: lazy(() => import('@/pages/consumePackage/table')),
       },
+      {
+        path: 'order/list',
+        meta: {
+          title: 'universal-layout.menu.home.consumePackage.order.list',
+        },
+        component: lazy(() => import('@/pages/consumePackage/orderList')),
+      },
       // {
       //   path: 'custombreadcrumbs',
       //   meta: {

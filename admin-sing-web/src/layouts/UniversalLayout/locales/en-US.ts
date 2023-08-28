@@ -37,4 +37,5 @@ export default {
   'universal-layout.menu.roles.test': 'Tests have permission',
 
   'universal-layout.menu.home.consumePackage.list': 'Consume Package List',
+  'universal-layout.menu.home.consumePackage.order.list': 'Order List',
 };

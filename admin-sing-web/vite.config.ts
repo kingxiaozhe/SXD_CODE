@@ -52,6 +52,22 @@ export default defineConfig(({ command, mode }) => {
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/data/, '/api'),
         },
+        '/api/consumeOrder': {
+          // 用于开发环境下的转发请求http://192.168.43.59:8090/api/consumePackage/list
+          // 更多请参考：https://vitejs.dev/config/#server-proxy
+          // target: 'http://192.168.43.59:8090',
+          target: `${VITE_SERVICE_DOMAIN}:${VITE_SERVICE_PORT}`,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/data/, '/api'),
+        },
+        '/api/dictInfo': {
+          // 用于开发环境下的转发请求http://192.168.43.59:8090/api/consumePackage/list
+          // 更多请参考：https://vitejs.dev/config/#server-proxy
+          // target: 'http://192.168.43.59:8090',
+          target: `${VITE_SERVICE_DOMAIN}:${VITE_SERVICE_PORT}`,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/data/, '/api'),
+        },
         '/api/cgi-bin': {
           target: `${VITE_WX_DOMAIN}`,
           changeOrigin: true,

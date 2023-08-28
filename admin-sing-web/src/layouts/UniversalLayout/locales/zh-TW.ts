@@ -37,4 +37,5 @@ export default {
   'universal-layout.menu.roles.test': 'Tests有權限',
 
   'universal-layout.menu.home.consumePackage.list': '套餐列表',
+  'universal-layout.menu.home.consumePackage.order.list': '订单列表',
 };
