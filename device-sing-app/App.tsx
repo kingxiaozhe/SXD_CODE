@@ -1,12 +1,9 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
-import React from "react";
+import React, { useEffect, useState } from "react";
 import type { PropsWithChildren } from "react";
+// import DeviceInfo from "react-native-device-info";
+import IntentLauncher from "react-native-intent-launcher";
+import axios from "axios";
+
 import {
   SafeAreaView,
   ScrollView,
@@ -64,18 +61,35 @@ function Section({ children, title }: SectionProps): JSX.Element {
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === "dark";
 
+  const [updateSubmitLoading, setUpdateSubmitLoading] =
+    useState<boolean>(false);
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
   const _onPress = () => {
-    Alert.alert("你点击了按钮！");
-    Linking.openURL(`tel:${"10086"}`);
-    // Linking.canOpenURL('auth://').then(canOpen => {
-    //   if (canOpen) {
-    //     Linking.openURL(`tel:${'10086'}`);
-    //   }
-    // });
+    console.log(123);
+    const intervalId = setInterval(() => {
+      _getByDeviceNo();
+    }, 5000); // 每5秒执行一次
+  };
+
+  const _getByDeviceNo = () => {
+    axios
+      .post("http://43.138.208.118:8090/api/consumeOrder/getByDeviceNo", {
+        deviceNo: "10001",
+      })
+      .then((response) => {
+        setUpdateSubmitLoading(!!response.data.data);
+        Alert.alert(String(!!response.data.data));
+        IntentLauncher.startActivity({
+          action: "com.sc.tv.vod",
+          packageName: "com.ktv.vod.activity.init.FirstStartActivity", // 替换为你想启动的应用的包名
+        });
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
   };
 
   const imageStyle = {
@@ -84,6 +98,10 @@ function App(): JSX.Element {
     paddingBottom: 100,
     viewHeight: 300,
   };
+
+  useEffect(() => {
+    _getByDeviceNo();
+  });
 
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -95,7 +113,7 @@ function App(): JSX.Element {
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}
       >
-        <Header />
+        {/* <Header /> */}
         <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
@@ -109,16 +127,14 @@ function App(): JSX.Element {
 
           <Button title="Linking" onPress={_onPress} />
 
-          <Section title="See Your Changes">
-            <ReloadInstructions />
+          <Section title="扫码支付，开启共享K歌">
+            {/* <ReloadInstructions /> */}
           </Section>
-          <Section title="Debug">
+          {/* <Section title="Debug">
             <DebugInstructions />
           </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+          <Section title="Learn More"></Section>
+          <LearnMoreLinks /> */}
         </View>
       </ScrollView>
     </SafeAreaView>
