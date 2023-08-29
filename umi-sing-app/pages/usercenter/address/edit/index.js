@@ -260,38 +260,38 @@ Page({
 
   onSearchAddress() {
     this.builtInSearch({ code: 'scope.userLocation', name: '地址位置' }).then(() => {
-      wx.chooseLocation({
-        success: (res) => {
-          if (res.name) {
-            this.triggerEvent('addressParse', {
-              address: res.address,
-              name: res.name,
-              latitude: res.latitude,
-              longitude: res.longitude,
-            });
-          } else {
-            Toast({
-              context: this,
-              selector: '#t-toast',
-              message: '地点为空，请重新选择',
-              icon: '',
-              duration: 1000,
-            });
-          }
-        },
-        fail: function (res) {
-          console.warn(`wx.chooseLocation fail: ${JSON.stringify(res)}`);
-          if (res.errMsg !== 'chooseLocation:fail cancel') {
-            Toast({
-              context: this,
-              selector: '#t-toast',
-              message: '地点错误，请重新选择',
-              icon: '',
-              duration: 1000,
-            });
-          }
-        },
-      });
+    //   wx.chooseLocation({
+    //     success: (res) => {
+    //       if (res.name) {
+    //         this.triggerEvent('addressParse', {
+    //           address: res.address,
+    //           name: res.name,
+    //           latitude: res.latitude,
+    //           longitude: res.longitude,
+    //         });
+    //       } else {
+    //         Toast({
+    //           context: this,
+    //           selector: '#t-toast',
+    //           message: '地点为空，请重新选择',
+    //           icon: '',
+    //           duration: 1000,
+    //         });
+    //       }
+    //     },
+    //     fail: function (res) {
+    //       console.warn(`wx.chooseLocation fail: ${JSON.stringify(res)}`);
+    //       if (res.errMsg !== 'chooseLocation:fail cancel') {
+    //         Toast({
+    //           context: this,
+    //           selector: '#t-toast',
+    //           message: '地点错误，请重新选择',
+    //           icon: '',
+    //           duration: 1000,
+    //         });
+    //       }
+    //     },
+    //   });
     });
   },
   formSubmit() {

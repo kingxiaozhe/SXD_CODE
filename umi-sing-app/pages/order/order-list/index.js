@@ -31,6 +31,7 @@ Page({
 
   onLoad(query) {
     let status = parseInt(query.status);
+    debugger;
     status = this.data.tabs.map((t) => t.key).includes(status) ? status : -1;
     this.init(status);
     this.pullDownRefresh = this.selectComponent('#wr-pull-down-refresh');
@@ -85,38 +86,46 @@ Page({
     this.setData({ listLoading: 1 });
     return fetchOrders(params)
       .then((res) => {
+        const {list,pageNum,pageSize,pages} = res.data;
+        debugger;
         this.page.num++;
         let orderList = [];
-        if (res && res.data && res.data.orders) {
-          orderList = (res.data.orders || []).map((order) => {
+        if (list) {
+          orderList = (list || []).map((order) => {
             return {
+                deviceNo: order.deviceNo,
+                endTime: order.endTime,
+                startTime: order.startTime,
+                status: order.status,
+                statusDesc: order.statusName,
+                userId: order.userId,
               id: order.orderId,
               orderNo: order.orderNo,
-              parentOrderNo: order.parentOrderNo,
-              storeId: order.storeId,
-              storeName: order.storeName,
-              status: order.orderStatus,
-              statusDesc: order.orderStatusName,
-              amount: order.paymentAmount,
-              totalAmount: order.totalAmount,
-              logisticsNo: order.logisticsVO.logisticsNo,
-              createTime: order.createTime,
-              goodsList: (order.orderItemVOs || []).map((goods) => ({
-                id: goods.id,
-                thumb: cosThumb(goods.goodsPictureUrl, 70),
-                title: goods.goodsName,
-                skuId: goods.skuId,
-                spuId: goods.spuId,
-                specs: (goods.specifications || []).map(
-                  (spec) => spec.specValue,
-                ),
-                price: goods.tagPrice ? goods.tagPrice : goods.actualPrice,
-                num: goods.buyQuantity,
-                titlePrefixTags: goods.tagText ? [{ text: goods.tagText }] : [],
-              })),
-              buttons: order.buttonVOs || [],
-              groupInfoVo: order.groupInfoVo,
-              freightFee: order.freightFee,
+              packageName: order.packageName,
+              storeId: order.deviceNo,
+              storeName: order.deviceNo,
+              amount: order.amount,
+            //   statusDesc: order.orderStatusName,
+            //   amount: order.paymentAmount,
+            //   totalAmount: order.totalAmount,
+            //   logisticsNo: order.logisticsVO.logisticsNo,
+              createTime: order.startTime,
+            //   goodsList: (order.orderItemVOs || []).map((goods) => ({
+            //     id: goods.id,
+            //     thumb: cosThumb(goods.goodsPictureUrl, 70),
+            //     title: goods.goodsName,
+            //     skuId: goods.skuId,
+            //     spuId: goods.spuId,
+            //     specs: (goods.specifications || []).map(
+            //       (spec) => spec.specValue,
+            //     ),
+            //     price: goods.tagPrice ? goods.tagPrice : goods.actualPrice,
+            //     num: goods.buyQuantity,
+            //     titlePrefixTags: goods.tagText ? [{ text: goods.tagText }] : [],
+            //   })),
+            //   buttons: order.buttonVOs || [],
+            //   groupInfoVo: order.groupInfoVo,
+            //   freightFee: order.freightFee,
             };
           });
         }

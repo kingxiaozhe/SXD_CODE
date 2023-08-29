@@ -20443,5 +20443,5 @@ export const miniProgramConfig = {
 }
 
 export const REQUEST_CONFIG = {
-    host: 'http://192.168.43.59:8090/'
+    host: 'http://43.138.208.118:8090/'
 }
