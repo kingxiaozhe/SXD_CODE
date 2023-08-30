@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import type { PropsWithChildren } from "react";
 // import DeviceInfo from "react-native-device-info";
-import IntentLauncher from "react-native-intent-launcher";
+
 import axios from "axios";
+// 引入 NativeModules
+import { NativeModules, AppState } from "react-native";
 
 import {
   SafeAreaView,
@@ -59,6 +61,7 @@ function Section({ children, title }: SectionProps): JSX.Element {
 }
 
 function App(): JSX.Element {
+  const [appState, setAppState] = useState<String>(AppState.currentState);
   const isDarkMode = useColorScheme() === "dark";
 
   const [updateSubmitLoading, setUpdateSubmitLoading] =
@@ -67,11 +70,19 @@ function App(): JSX.Element {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
-  const _onPress = () => {
-    console.log(123);
+  const setupTimer = () => {
+    // _getByDeviceNo();
     const intervalId = setInterval(() => {
       _getByDeviceNo();
-    }, 5000); // 每5秒执行一次
+    }, 2000); // 每5秒执行一次
+  };
+
+  const handleAppStateChange = (nextAppState: String) => {
+    if (appState.match(/inactive|background/) && nextAppState === "active") {
+      // 从后台回到前台时，重新设置定时器
+      setupTimer();
+    }
+    setAppState(nextAppState);
   };
 
   const _getByDeviceNo = () => {
@@ -80,12 +91,29 @@ function App(): JSX.Element {
         deviceNo: "10001",
       })
       .then((response) => {
-        setUpdateSubmitLoading(!!response.data.data);
-        Alert.alert(String(!!response.data.data));
-        IntentLauncher.startActivity({
-          action: "com.sc.tv.vod",
-          packageName: "com.ktv.vod.activity.init.FirstStartActivity", // 替换为你想启动的应用的包名
-        });
+        console.log(`appState=>${appState}`);
+        const { duration } = response.data.data;
+        console.log(`duration=>${duration}`);
+        // 如果当前没有打开过，并且订单有值，则打开唱歌软件
+        if (!updateSubmitLoading && response.data.data) {
+          // sendData 是在原生模块自定义的方法，默认数据格式为字符串
+          try {
+            // SendModule 为我们自定义的原生模块
+            const SendModule = NativeModules.SendModule;
+            SendModule.openAppAndCloseAfter(
+              "com.google.android.apps.chrome.Main",
+              5000
+            );
+            setUpdateSubmitLoading(true);
+          } catch (error) {
+            console.log(`Error sending data${error}`);
+          }
+        }
+        // 如果当前订单没有值，则设置关闭唱歌软件状态
+        if (!response.data.data) {
+          setUpdateSubmitLoading(false);
+          //   SendModule.closeApp();
+        }
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -98,9 +126,34 @@ function App(): JSX.Element {
     paddingBottom: 100,
     viewHeight: 300,
   };
+  useEffect(() => {
+    console.log(11111);
+    const handleAppStateChange = (nextAppState: String) => {
+      console.log(13123123123);
+      if (appState.match(/inactive|background/) && nextAppState === "active") {
+        // 从后台回到前台时的操作，例如重新设置定时器
+        console.log("====123");
+      }
+      setAppState(nextAppState);
+    };
+
+    const appStateListener = AppState.addEventListener(
+      "change",
+      handleAppStateChange
+    );
+
+    return () => {
+      appStateListener.remove();
+    };
+  }, []);
 
   useEffect(() => {
-    _getByDeviceNo();
+    const timer = setInterval(() => {
+      // 请求接口和其他操作
+      _getByDeviceNo();
+    }, 2000);
+
+    return () => clearInterval(timer); // 清除定时器，以防止内存泄漏
   });
 
   return (
@@ -125,7 +178,7 @@ function App(): JSX.Element {
             source={require("./common/image/qrcode.png")}
           />
 
-          <Button title="Linking" onPress={_onPress} />
+          {/* <Button title="Linking" onPress={_onPress} /> */}
 
           <Section title="扫码支付，开启共享K歌">
             {/* <ReloadInstructions /> */}
