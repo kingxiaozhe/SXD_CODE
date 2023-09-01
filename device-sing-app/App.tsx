@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import type { PropsWithChildren } from "react";
+import backgroundImage from "./assets/pic_hd.jpg";
+import assets_qrcode from "./assets/assets_qrcode.png";
 // import DeviceInfo from "react-native-device-info";
 
 import axios from "axios";
 // 引入 NativeModules
-import { NativeModules, AppState } from "react-native";
+import { NativeModules, AppState, ImageBackground } from "react-native";
 
 import {
   SafeAreaView,
@@ -68,7 +70,56 @@ function App(): JSX.Element {
     useState<boolean>(false);
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    flex: 1,
   };
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+    },
+    image: {
+      width: "100%",
+      height: "100%",
+      flex: 1,
+      resizeMode: "cover", // 或 'contain'
+      justifyContent: "center", // 居中显示子组件
+    },
+    containerView: {
+      flexDirection: "row", // 设置子元素为水平排列
+      marginBottom: 60,
+    },
+    block: {
+      flex: 1, // 平均分配容器的空间
+      justifyContent: "center", // 垂直居中
+      alignItems: "center", // 水平居中
+      height: 50,
+      borderWidth: 0, // 可选的边框，让每个块看起来更清晰
+      borderColor: "#ddd",
+    },
+    textStyle: {
+      fontSize: 24, // 设置字体大小为24
+      color: "white",
+      paddingBottom: 5,
+    },
+    blockLeft: {
+      flex: 1, // 平均分配容器的空间
+      justifyContent: "center", // 垂直居中
+      alignItems: "center", // 水平居中
+      height: 50,
+      borderWidth: 0, // 可选的边框，让每个块看起来更清晰
+      borderColor: "#ddd",
+    },
+    blockRight: {
+      flex: 1, // 平均分配容器的空间
+      justifyContent: "flex-end", // 垂直居中
+      alignItems: "center", // 水平居中
+      height: 50,
+      borderWidth: 0, // 可选的边框，让每个块看起来更清晰
+      borderColor: "#ddd",
+    },
+    textFont: {
+      color: "white",
+    },
+  });
 
   const setupTimer = () => {
     // _getByDeviceNo();
@@ -86,6 +137,7 @@ function App(): JSX.Element {
   };
 
   const _getByDeviceNo = () => {
+    return;
     axios
       .post("http://43.138.208.118:8090/api/consumeOrder/getByDeviceNo", {
         deviceNo: "10001",
@@ -124,7 +176,6 @@ function App(): JSX.Element {
     width: 200,
     height: 200,
     paddingBottom: 100,
-    viewHeight: 300,
   };
   useEffect(() => {
     console.log(11111);
@@ -158,38 +209,30 @@ function App(): JSX.Element {
 
   return (
     <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? "light-content" : "dark-content"}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}
-      >
-        {/* <Header /> */}
+      <ImageBackground source={backgroundImage} style={styles.image}>
+        <View style={styles.containerView}>
+          <View style={styles.block}>
+            <Text style={styles.textFont}>系统版本：1.0.0.1</Text>
+          </View>
+          <View style={styles.block}>
+            <Text style={styles.textStyle}>欢迎来到共享K歌</Text>
+          </View>
+          <View style={styles.block}>
+            <Text style={styles.textFont}>设备编号：10001</Text>
+          </View>
+        </View>
         <View
           style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
             alignItems: "center",
           }}
         >
-          <Image
-            style={imageStyle}
-            source={require("./common/image/qrcode.png")}
-          />
-
-          {/* <Button title="Linking" onPress={_onPress} /> */}
-
-          <Section title="扫码支付，开启共享K歌">
+          <Image style={{ ...imageStyle }} source={assets_qrcode} />
+          <Section title="1.打开微信 2.扫描上方二维码">
             {/* <ReloadInstructions /> */}
           </Section>
-          {/* <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More"></Section>
-          <LearnMoreLinks /> */}
+          {/* <Button title="Linking" onPress={_onPress} /> */}
         </View>
-      </ScrollView>
+      </ImageBackground>
     </SafeAreaView>
   );
 }

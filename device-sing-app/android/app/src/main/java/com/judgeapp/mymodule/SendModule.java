@@ -11,6 +11,8 @@ import android.os.Handler;
 import java.io.IOException;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
+import java.io.DataOutputStream;
+import java.lang.Process;
 
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -81,7 +83,7 @@ public class SendModule extends ReactContextBaseJavaModule {
             
         // log.info("This is test java util log");     
             try {
-                Process process = Runtime.getRuntime().exec("am start -n " + packageName);
+                // Process process = Runtime.getRuntime().exec("am start -n " + packageName);
                 Thread.sleep(delay);
                 Runtime.getRuntime().exec("am force-stop " + packageName);
             } catch (IOException | InterruptedException e) {
@@ -112,10 +114,29 @@ public class SendModule extends ReactContextBaseJavaModule {
                 public void run() {
                     // You may need another way to kill an app. This might not be optimal.
                     // android.os.Process.killProcess(android.os.Process.myPid());
-                    log.info("================================");
-                    Intent intent  = getReactApplicationContext().getPackageManager().getLaunchIntentForPackage("com.rncode");
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    getReactApplicationContext().startActivity(intent);
+                    Process process = null;
+                    try{
+                        // boolean rootAvailable = RootShell.isRootAvailable();
+                        // log.info(">>>>>>>>>"+rootAvailable);
+                        // if (rootAvailable) {
+                        //     log.info("========wanghao========================");
+                        //     Command cmd = new Command(0, "am force-stop com.android.chrome");
+                        //     RootShell.getShell(true).add(cmd);
+                        // }
+                        log.info("========wanghao========================");
+                        Runtime.getRuntime().exec("am force-stop com.android.chrome");
+                        // process = Runtime.getRuntime().exec("su");
+                        // DataOutputStream os = new DataOutputStream(process.getOutputStream());
+                        // os.writeBytes("Adb shell am force-stop com.android.chrome" + "\n");
+                        // os.writeBytes("exit\n");
+                        // os.flush();
+                        // Runtime.getRuntime().exec("am force-stop com.android.chrome");
+                    }catch (Exception e) {  
+                        log.info("Adb shell am force-stop com.android.chrome="+(e.getMessage()));
+                    }
+                    // Intent intent  = getReactApplicationContext().getPackageManager().getLaunchIntentForPackage("com.rncode");
+                    // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    // getReactApplicationContext().startActivity(intent);
                 }
             }, delayMillis);
         }
