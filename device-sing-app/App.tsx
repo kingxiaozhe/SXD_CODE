@@ -3,12 +3,17 @@ import type { PropsWithChildren } from "react";
 import backgroundImage from "./assets/pic_hd.jpg";
 import assets_qrcode from "./assets/assets_qrcode.png";
 // import DeviceInfo from "react-native-device-info";
+import DeviceInfo from "react-native-device-info";
+import { exitApp } from "react-native-exit-app"; // 导入退出应用函数
 
 import axios from "axios";
-// 引入 NativeModules
-import { NativeModules, AppState, ImageBackground } from "react-native";
 
 import {
+  NativeModules,
+  AppState,
+  ImageBackground,
+  TouchableOpacity,
+  Modal,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -20,6 +25,8 @@ import {
   Button,
   Linking,
   Alert,
+  TextInput,
+  TouchableWithoutFeedback,
 } from "react-native";
 
 import {
@@ -42,7 +49,7 @@ function Section({ children, title }: SectionProps): JSX.Element {
         style={[
           styles.sectionTitle,
           {
-            color: isDarkMode ? Colors.white : Colors.black,
+            color: Colors.white,
           },
         ]}
       >
@@ -65,6 +72,8 @@ function Section({ children, title }: SectionProps): JSX.Element {
 function App(): JSX.Element {
   const [appState, setAppState] = useState<String>(AppState.currentState);
   const isDarkMode = useColorScheme() === "dark";
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [password, setPassword] = useState("");
 
   const [updateSubmitLoading, setUpdateSubmitLoading] =
     useState<boolean>(false);
@@ -95,10 +104,23 @@ function App(): JSX.Element {
       borderWidth: 0, // 可选的边框，让每个块看起来更清晰
       borderColor: "#ddd",
     },
+    blockCenter: {
+      flex: 1, // 平均分配容器的空间
+      justifyContent: "center", // 垂直居中
+      alignItems: "center", // 水平居中
+      height: 50,
+      borderWidth: 0, // 可选的边框，让每个块看起来更清晰
+      borderColor: "#ddd",
+      backgroundColor: "#619CFF", // 设置背景色
+      marginTop: -5,
+      borderBottomLeftRadius: 60,
+      borderBottomRightRadius: 60,
+    },
     textStyle: {
-      fontSize: 24, // 设置字体大小为24
+      fontSize: 20, // 设置字体大小为24
       color: "white",
       paddingBottom: 5,
+      fontWeight: "bold",
     },
     blockLeft: {
       flex: 1, // 平均分配容器的空间
@@ -119,6 +141,56 @@ function App(): JSX.Element {
     textFont: {
       color: "white",
     },
+    square: {
+      width: 250, // 设置正方形的宽度
+      height: 250, // 设置正方形的高度
+      backgroundColor: "#619CFF", // 设置背景色
+      borderRadius: 20,
+      justifyContent: "center", // 垂直居中
+      alignItems: "center", // 水平居中
+    },
+    triggerText: {
+      fontSize: 18,
+      color: "blue",
+    },
+    modalContainer: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: "rgba(0, 0, 0, 0.5)",
+    },
+    modalContent: {
+      backgroundColor: "white",
+      padding: 20,
+      borderRadius: 10,
+      alignItems: "center",
+      width: 300, // 设置宽度
+      height: 200, // 设置高度
+    },
+    modalTitle: {
+      fontSize: 18,
+      marginBottom: 10,
+    },
+    passwordInput: {
+      width: "100%",
+      padding: 10,
+      borderWidth: 1,
+      borderColor: "gray",
+      borderRadius: 5,
+      marginBottom: 10,
+    },
+    submitButton: {
+      backgroundColor: "blue",
+      padding: 10,
+      borderRadius: 5,
+      width: 100, // 设置宽度
+      height: 50, // 设置高度
+    },
+    buttonText: {
+      color: "white",
+      fontSize: 16,
+      textAlign: "center",
+    },
   });
 
   const setupTimer = () => {
@@ -126,6 +198,29 @@ function App(): JSX.Element {
     const intervalId = setInterval(() => {
       _getByDeviceNo();
     }, 2000); // 每5秒执行一次
+  };
+
+  const toggleModal = () => {
+    setIsModalVisible(!isModalVisible);
+  };
+
+  const handlePasswordSubmit = () => {
+    if (password === "gxkg") {
+      // 替换为你的密码
+      Alert.alert("成功", "密码正确！");
+      setIsModalVisible(false);
+      const SendModule = NativeModules.SendModule;
+      SendModule.exitApp();
+      // 退出应用
+      //   exitApp();
+    } else {
+      Alert.alert("错误", "密码错误，请重试！");
+    }
+  };
+
+  const getMacAddress = async () => {
+    const serialNumber = await DeviceInfo.getSerialNumber();
+    console.log("Device Serial Number:", serialNumber);
   };
 
   const handleAppStateChange = (nextAppState: String) => {
@@ -173,12 +268,12 @@ function App(): JSX.Element {
   };
 
   const imageStyle = {
-    width: 200,
-    height: 200,
-    paddingBottom: 100,
+    width: 180,
+    height: 180,
   };
   useEffect(() => {
     console.log(11111);
+    getMacAddress();
     const handleAppStateChange = (nextAppState: String) => {
       console.log(13123123123);
       if (appState.match(/inactive|background/) && nextAppState === "active") {
@@ -214,11 +309,43 @@ function App(): JSX.Element {
           <View style={styles.block}>
             <Text style={styles.textFont}>系统版本：1.0.0.1</Text>
           </View>
-          <View style={styles.block}>
+          <View style={styles.blockCenter}>
             <Text style={styles.textStyle}>欢迎来到共享K歌</Text>
           </View>
           <View style={styles.block}>
-            <Text style={styles.textFont}>设备编号：10001</Text>
+            <TouchableWithoutFeedback
+              onLongPress={toggleModal} // 长按事件处理函数
+              delayLongPress={500} // 长按触发的延迟时间（毫秒）
+            >
+              <Text style={styles.textFont}>设备编号：10001</Text>
+            </TouchableWithoutFeedback>
+            <Modal
+              visible={isModalVisible}
+              transparent={true}
+              animationType="slide"
+              onRequestClose={() => setIsModalVisible(false)}
+            >
+              <TouchableWithoutFeedback onPress={toggleModal}>
+                <View style={styles.modalContainer}>
+                  <View style={styles.modalContent}>
+                    <Text style={styles.modalTitle}>输入密码</Text>
+                    <TextInput
+                      secureTextEntry
+                      placeholder="请输入密码"
+                      value={password}
+                      onChangeText={setPassword}
+                      style={styles.passwordInput}
+                    />
+                    <TouchableOpacity
+                      style={styles.submitButton}
+                      onPress={handlePasswordSubmit}
+                    >
+                      <Text style={styles.buttonText}>确认</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </TouchableWithoutFeedback>
+            </Modal>
           </View>
         </View>
         <View
@@ -226,7 +353,9 @@ function App(): JSX.Element {
             alignItems: "center",
           }}
         >
-          <Image style={{ ...imageStyle }} source={assets_qrcode} />
+          <View style={styles.square}>
+            <Image style={{ ...imageStyle }} source={assets_qrcode} />
+          </View>
           <Section title="1.打开微信 2.扫描上方二维码">
             {/* <ReloadInstructions /> */}
           </Section>
@@ -257,3 +386,16 @@ const styles = StyleSheet.create({
 });
 
 export default App;
+
+// let arrayData = [];
+// let arrayDoms = [];
+
+// for (let i = 0; i < $(".mod_content_center").length; i++) {
+//   const t = $(".mod_content_center")[i];
+//   const tHtml = t.innerHTML
+//     .replaceAll('<font color="red">', "")
+//     .replaceAll("</font>", "");
+//   arrayDoms.push(tHtml);
+// }
+
+// $("PageNext").click();

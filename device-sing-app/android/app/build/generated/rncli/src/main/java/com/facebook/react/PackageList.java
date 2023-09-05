@@ -11,7 +11,14 @@ import com.facebook.react.shell.MainReactPackage;
 import java.util.Arrays;
 import java.util.ArrayList;
 
-
+// react-native-device-info
+import com.learnium.RNDeviceInfo.RNDeviceInfo;
+// react-native-exit-app
+import com.github.wumke.RNExitApp.RNExitAppPackage;
+// react-native-intent-launcher
+import com.poberwong.launcher.IntentLauncherPackage;
+// react-native-send-intent
+import com.burnweb.rnsendintent.RNSendIntentPackage;
 
 public class PackageList {
   private Application application;
@@ -56,7 +63,11 @@ public class PackageList {
 
   public ArrayList<ReactPackage> getPackages() {
     return new ArrayList<>(Arrays.<ReactPackage>asList(
-      new MainReactPackage(mConfig)
+      new MainReactPackage(mConfig),
+      new RNDeviceInfo(),
+      new RNExitAppPackage(),
+      new IntentLauncherPackage(),
+      new RNSendIntentPackage()
     ));
   }
 }

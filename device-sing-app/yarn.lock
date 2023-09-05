@@ -5421,6 +5421,11 @@ react-native-device-info@^10.8.0:
   resolved "https://registry.npmjs.org/react-native-device-info/-/react-native-device-info-10.8.0.tgz"
   integrity sha512-DE4/X82ZVhdcnR1Y21iTP46WSSJA/rHK3lmeqWfGGq1RKLwXTIdxmfbZZnYwryqJ+esrw2l4ND19qlgxDGby8A==
 
+react-native-exit-app@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.npmjs.org/react-native-exit-app/-/react-native-exit-app-2.0.0.tgz"
+  integrity sha512-vr9e/8jgPcKCBw6qo0QLxfeMiTwExydghbYDqpLZYAGWR+6cbgnhvOxwdYj/JWR7ZtOALrRA4GMGSvU/ayxM7w==
+
 react-native-intent-launcher@^0.2.1:
   version "0.2.1"
   resolved "https://registry.npmjs.org/react-native-intent-launcher/-/react-native-intent-launcher-0.2.1.tgz"
