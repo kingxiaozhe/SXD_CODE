@@ -74,6 +74,7 @@ function App(): JSX.Element {
   const isDarkMode = useColorScheme() === "dark";
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [password, setPassword] = useState("");
+  const [deviceNo, setDeviceNo] = useState(10001);
 
   const [updateSubmitLoading, setUpdateSubmitLoading] =
     useState<boolean>(false);
@@ -196,7 +197,7 @@ function App(): JSX.Element {
   const setupTimer = () => {
     // _getByDeviceNo();
     const intervalId = setInterval(() => {
-      _getByDeviceNo();
+      _getOrderByDeviceNo();
     }, 2000); // 每5秒执行一次
   };
 
@@ -231,7 +232,26 @@ function App(): JSX.Element {
     setAppState(nextAppState);
   };
 
-  const _getByDeviceNo = () => {
+  const _getByDeviceNo = async () => {
+    const serialNumber = await DeviceInfo.getSerialNumber();
+    const deviceName = await DeviceInfo.getDeviceName();
+    // Alert.alert(`Device ${deviceName}`);
+    axios
+      .post("http://43.138.208.118:8090//api/device/register", {
+        uniqueMark: "AB123456789C",
+        name: deviceName,
+      })
+      .then((response) => {
+        // Alert.alert(response.data.data.id);
+        setDeviceNo(response.data.data.id || 101010);
+        console.log(`Successfully registered${response}`);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  };
+
+  const _getOrderByDeviceNo = () => {
     return;
     axios
       .post("http://43.138.208.118:8090/api/consumeOrder/getByDeviceNo", {
@@ -273,9 +293,8 @@ function App(): JSX.Element {
   };
   useEffect(() => {
     console.log(11111);
-    getMacAddress();
+    _getByDeviceNo();
     const handleAppStateChange = (nextAppState: String) => {
-      console.log(13123123123);
       if (appState.match(/inactive|background/) && nextAppState === "active") {
         // 从后台回到前台时的操作，例如重新设置定时器
         console.log("====123");
@@ -296,7 +315,7 @@ function App(): JSX.Element {
   useEffect(() => {
     const timer = setInterval(() => {
       // 请求接口和其他操作
-      _getByDeviceNo();
+      _getOrderByDeviceNo();
     }, 2000);
 
     return () => clearInterval(timer); // 清除定时器，以防止内存泄漏
@@ -317,7 +336,7 @@ function App(): JSX.Element {
               onLongPress={toggleModal} // 长按事件处理函数
               delayLongPress={500} // 长按触发的延迟时间（毫秒）
             >
-              <Text style={styles.textFont}>设备编号：10001</Text>
+              <Text style={styles.textFont}>设备编号：{deviceNo}</Text>
             </TouchableWithoutFeedback>
             <Modal
               visible={isModalVisible}
