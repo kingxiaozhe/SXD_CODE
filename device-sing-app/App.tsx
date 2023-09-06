@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import type { PropsWithChildren } from "react";
-import backgroundImage from "./assets/pic_hd.jpg";
+import backgroundImage from "./assets/pic_hd_new.jpg";
 import assets_qrcode from "./assets/assets_qrcode.png";
 // import DeviceInfo from "react-native-device-info";
 import DeviceInfo from "react-native-device-info";
 import { exitApp } from "react-native-exit-app"; // 导入退出应用函数
+import QRCode from "qrcode-generator";
 
 import axios from "axios";
 
@@ -75,6 +76,7 @@ function App(): JSX.Element {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [password, setPassword] = useState("");
   const [deviceNo, setDeviceNo] = useState(10001);
+  const [qrCodeDataUrl, setQrCodeDataUrl] = useState("");
 
   const [updateSubmitLoading, setUpdateSubmitLoading] =
     useState<boolean>(false);
@@ -112,7 +114,6 @@ function App(): JSX.Element {
       height: 50,
       borderWidth: 0, // 可选的边框，让每个块看起来更清晰
       borderColor: "#ddd",
-      backgroundColor: "#619CFF", // 设置背景色
       marginTop: -5,
       borderBottomLeftRadius: 60,
       borderBottomRightRadius: 60,
@@ -145,7 +146,6 @@ function App(): JSX.Element {
     square: {
       width: 250, // 设置正方形的宽度
       height: 250, // 设置正方形的高度
-      backgroundColor: "#619CFF", // 设置背景色
       borderRadius: 20,
       justifyContent: "center", // 垂直居中
       alignItems: "center", // 水平居中
@@ -194,6 +194,16 @@ function App(): JSX.Element {
     },
   });
 
+  const urlToEncodeFn = (deviceNo: string): void => {
+    const urlToEncode = `https://example.com/${deviceNo}`; // 替换为你想生成二维码的URL
+
+    const qr = QRCode(0, "M");
+    qr.addData(urlToEncode);
+    qr.make();
+    debugger;
+    const qrCodeDataUrl = qr.createDataURL(10, 0);
+    setQrCodeDataUrl(qrCodeDataUrl);
+  };
   const setupTimer = () => {
     // _getByDeviceNo();
     const intervalId = setInterval(() => {
@@ -244,6 +254,7 @@ function App(): JSX.Element {
       .then((response) => {
         // Alert.alert(response.data.data.id);
         setDeviceNo(response.data.data.id || 101010);
+        urlToEncodeFn(response.data.data.id);
         console.log(`Successfully registered${response}`);
       })
       .catch((error) => {
@@ -288,8 +299,10 @@ function App(): JSX.Element {
   };
 
   const imageStyle = {
-    width: 180,
-    height: 180,
+    width: 120,
+    height: 120,
+    marginTop: 45,
+    marginLeft: 2,
   };
   useEffect(() => {
     console.log(11111);
@@ -329,7 +342,7 @@ function App(): JSX.Element {
             <Text style={styles.textFont}>系统版本：1.0.0.1</Text>
           </View>
           <View style={styles.blockCenter}>
-            <Text style={styles.textStyle}>欢迎来到共享K歌</Text>
+            <Text style={styles.textStyle}></Text>
           </View>
           <View style={styles.block}>
             <TouchableWithoutFeedback
@@ -373,11 +386,13 @@ function App(): JSX.Element {
           }}
         >
           <View style={styles.square}>
-            <Image style={{ ...imageStyle }} source={assets_qrcode} />
+            <Image source={{ uri: qrCodeDataUrl }} style={{ ...imageStyle }} />
+            {/* <QRCode
+              value={urlToEncode}
+              size={200} // 设置二维码的尺寸
+            /> */}
           </View>
-          <Section title="1.打开微信 2.扫描上方二维码">
-            {/* <ReloadInstructions /> */}
-          </Section>
+          <Section>{/* <ReloadInstructions /> */}</Section>
           {/* <Button title="Linking" onPress={_onPress} /> */}
         </View>
       </ImageBackground>
