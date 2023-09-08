@@ -195,12 +195,11 @@ function App(): JSX.Element {
   });
 
   const urlToEncodeFn = (deviceNo: string): void => {
-    const urlToEncode = `https://example.com/${deviceNo}`; // 替换为你想生成二维码的URL
+    const urlToEncode = `https://www.sharesingk.com/miniapp/sing?deviceNo=${deviceNo}`; // 替换为你想生成二维码的URL
 
     const qr = QRCode(0, "M");
     qr.addData(urlToEncode);
     qr.make();
-    debugger;
     const qrCodeDataUrl = qr.createDataURL(10, 0);
     setQrCodeDataUrl(qrCodeDataUrl);
   };
