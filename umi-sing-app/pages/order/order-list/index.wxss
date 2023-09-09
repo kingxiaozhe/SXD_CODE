@@ -130,3 +130,14 @@ wr-order-goods-card:not(:first-child) .wr-goods-card {
     --td-button-default-color: #000;
     --td-button-primary-text-color: #fa4126;
 }
+
+.button {
+    width: 100px;
+    height: 30px;
+    background-color: #0f79ea;
+    color: #fff;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 5px;
+    margin-right: 20px;
+}

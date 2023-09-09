@@ -34,7 +34,7 @@ Page({
     fetchPerson().then((personInfo) => {
       this.setData({
         personInfo,
-        'personInfo.phoneNumber': phoneEncryption(personInfo.phoneNumber),
+        'personInfo.phoneNumber': personInfo.phoneNumber? phoneEncryption(personInfo.phoneNumber):'',
       });
     });
   },

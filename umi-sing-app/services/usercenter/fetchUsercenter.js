@@ -12,6 +12,7 @@ export function fetchUserCenter() {
   if (config.useMock) {
     return mockFetchUserCenter();
   }
+  debugger;
   return new Promise((resolve) => {
     resolve('real api');
   });

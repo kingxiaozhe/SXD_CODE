@@ -20443,5 +20443,6 @@ export const miniProgramConfig = {
 }
 
 export const REQUEST_CONFIG = {
-    host: 'http://43.138.208.118:8090/'
+    host: 'https://www.sharesingk.com',
+    host1: 'http://43.138.208.118:8090/'
 }

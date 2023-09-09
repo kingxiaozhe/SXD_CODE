@@ -2,6 +2,10 @@ Component({
   externalClasses: ['wr-class'],
 
   properties: {
+    selectedViewIndex: {
+        type: String,
+        value: "",
+      },
     goodsList: {
       type: Array,
       value: [],

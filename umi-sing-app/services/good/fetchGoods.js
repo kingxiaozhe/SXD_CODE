@@ -41,7 +41,7 @@ function genGood(currentGoods,id, available = 1) {
       desc: item?.desc || defaultDesc,
       price:item.amount,
       originPrice:Number(item.amount)+20,
-      tags:['限时抢购'],
+      tags:[],
     };
   }
 

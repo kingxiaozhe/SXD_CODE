@@ -4,6 +4,10 @@ Component({
   },
 
   properties: {
+    selectedViewIndex: {
+      type: String,
+      value: "",
+    },
     id: {
       type: String,
       value: '',
@@ -49,6 +53,7 @@ Component({
     independentID: '',
     goods: { id: '' },
     isValidityLinePrice: false,
+    
   },
 
   lifetimes: {

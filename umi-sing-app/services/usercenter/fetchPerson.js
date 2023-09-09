@@ -19,10 +19,22 @@ function mockFetchPerson() {
 
 /** 获取个人中心信息 */
 export function fetchPerson() {
-  if (config.useMock) {
-    return mockFetchPerson();
-  }
+//   if (config.useMock) {
+//     return mockFetchPerson();
+//   }
   return new Promise((resolve) => {
-    resolve('real api');
+    wx.getUserInfo({
+        success: function(res) {
+          var userInfo = res.userInfo
+        //   var nickName = userInfo.nickName
+        //   var avatarUrl = userInfo.avatarUrl
+        //   var gender = userInfo.gender //性别 0：未知、1：男、2：女
+        //   var province = userInfo.province
+        //   var city = userInfo.city
+        //   var country = userInfo.country
+          resolve(userInfo);
+        }
+      })
+    
   });
 }

@@ -2,12 +2,13 @@ import { OrderStatus } from '../config';
 import {
   fetchOrders,
   fetchOrdersCount,
+  stopCurrentOrder,
 } from '../../../services/order/orderList';
 import { cosThumb } from '../../../utils/util';
 
 Page({
   page: {
-    size: 5,
+    size: 100,
     num: 1,
   },
 
@@ -31,7 +32,6 @@ Page({
 
   onLoad(query) {
     let status = parseInt(query.status);
-    debugger;
     status = this.data.tabs.map((t) => t.key).includes(status) ? status : -1;
     this.init(status);
     this.pullDownRefresh = this.selectComponent('#wr-pull-down-refresh');
@@ -43,15 +43,32 @@ Page({
     this.setData({ backRefresh: false });
   },
 
-  onReachBottom() {
-    if (this.data.listLoading === 0) {
-      this.getOrderList(this.data.curTab);
-    }
+//   onReachBottom() {
+//     if (this.data.listLoading === 0) {
+//       this.getOrderList(this.data.curTab);
+//     }
+//   },
+  handleButtonClick: function (event) {
+    const _this = this;
+    wx.showModal({
+        title: '提示',
+        content: '确定要提前结束吗？',
+        success: function (res) {
+          if (res.confirm) {
+            _this.stopCurrentOrder(event.currentTarget.dataset.param1);
+          } else if (res.cancel) {
+            // // 用户点击了取消按钮
+            // console.log('用户点击了取消');
+            // // 可选：在取消时执行其他操作
+          }
+        }
+      });
+    
   },
 
-  onPageScroll(e) {
-    this.pullDownRefresh && this.pullDownRefresh.onPageScroll(e);
-  },
+//   onPageScroll(e) {
+//     this.pullDownRefresh && this.pullDownRefresh.onPageScroll(e);
+//   },
 
   onPullDownRefresh_(e) {
     const { callback } = e.detail;
@@ -75,6 +92,37 @@ Page({
     this.refreshList(status);
   },
 
+  // 提前结束订单
+  stopCurrentOrder(orderNo){
+    const _this=this;
+    const params = {
+        orderNo
+    };
+    this.setData({ listLoading: 1 });
+    return stopCurrentOrder(params)
+      .then((res) => {
+        return new Promise((resolve) => {
+          resolve();
+        }).then(() => {
+            
+            _this.data.orderList.forEach((item,idx)=>{
+                if(item['orderNo']==orderNo){
+                    _this.data.orderList[idx]['status'] = "2";
+                    _this.data.orderList[idx]['statusDesc'] = "已完成";
+                }
+            })
+            _this.setData({
+                orderList: [..._this.data.orderList],
+                listLoading: _this.data.orderList.length > 0 ? 0 : 2,
+            });
+        });
+      })
+      .catch((err) => {
+        this.setData({ listLoading: 3 });
+        return Promise.reject(err);
+      });
+  },
+
   getOrderList(statusCode = -1, reset = false) {
     const params = {
       parameter: {
@@ -87,7 +135,6 @@ Page({
     return fetchOrders(params)
       .then((res) => {
         const {list,pageNum,pageSize,pages} = res.data;
-        debugger;
         this.page.num++;
         let orderList = [];
         if (list) {

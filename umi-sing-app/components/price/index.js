@@ -2,6 +2,18 @@ Component({
   externalClasses: ['wr-class', 'symbol-class', 'decimal-class'],
   useStore: [],
   properties: {
+    moduleType:{
+        type:String,
+        value:"",
+    },
+    selectedId:{
+        type:String,
+        value:"",
+    },
+    selectedViewIndex:{
+        type:String,
+        value:"",
+    },
     priceUnit: {
       type: String,
       value: 'fen',

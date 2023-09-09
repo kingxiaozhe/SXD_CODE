@@ -19,6 +19,7 @@ Page({
     interval: 5000,
     navigation: { type: 'dots' },
     swiperImageProps: { mode: 'scaleToFill' },
+    selectedViewIndex:"",
   },
 
   goodListPagination: {
@@ -36,19 +37,39 @@ Page({
 
   onLoad(query) {
     this.init();
-    const deviceNo = decodeURIComponent(query.deviceNo) // 获取到二维码原始链接内容
-    wx.setStorageSync('deviceNo', deviceNo); // 将获取到的设备号存储到本地缓存中
-    this.setData({
-        deviceNo
-    })
-    // const scancode_time = parseInt(query.scancode_time) // 获取用户扫码时间 UNIX 时间戳
-  },
-
-  onReachBottom() {
-    if (this.data.goodsListLoadStatus === 0) {
-      this.loadGoodsList();
+    if(query.q){
+        wx.showModal({
+            title: JSON.stringify(query.q),
+            content: JSON.stringify(query.q)
+          });
+        var scene = decodeURIComponent(query.q);
+        
+        const queryString = scene.split("?")[1];
+        const deviceNo = queryString.split("=")[1];
+        wx.setStorageSync('deviceNo', deviceNo); // 将获取到的设备号存储到本地缓存中
+        wx.showModal({
+            title: JSON.stringify(query.q),
+            content: JSON.stringify(query.q)
+          });
+        this.setData({
+            deviceNo
+        })
+    }else if(query && query.deviceNo){
+        wx.showModal({
+            title: JSON.stringify(query.deviceNo),
+            content: JSON.stringify(query.deviceNo)
+          });
+        this.setData({
+            deviceNo:query.deviceNo
+        })
     }
   },
+
+//   onReachBottom() {
+//     if (this.data.goodsListLoadStatus === 0) {
+//       this.loadGoodsList();
+//     }
+//   },
 
   onPullDownRefresh() {
     this.init();
@@ -112,12 +133,29 @@ Page({
     }
   },
 
-  goodListClickHandle(e) {
+  selectedGoods(e){
     const { index } = e.detail;
     const { id } = this.data.goodsList[index];
+    this.setData({
+        selectedViewIndex: id,
+      });
+  },
+
+  goodListClickHandle() {
+    // const { index } = e.detail;
+    // const { id } = this.data.goodsList[index];
+    const id = this.data.selectedViewIndex;
+    if(!id){
+        wx.showToast({
+            title: '请选择对应套餐',
+            icon: 'error',
+            duration: 2000
+          });
+          return;
+    }
     const {nickName} = wx.getStorageSync('userInfo');
     const openId = wx.getStorageSync('openId');
-    const deviceNo = wx.getStorageSync('deviceNo');
+    const deviceNo = wx.getStorageSync('deviceNo')||'';
     const params = {
         deviceNo,
         orderDate: formatDateThis(new Date(),''),
@@ -128,6 +166,14 @@ Page({
         userId: openId,
         userName: nickName
     }
+    if(!deviceNo){
+        wx.showToast({
+            title: '当前设备号为空，请联系管理员',
+            icon: 'error',
+            duration: 2000
+          });
+          return;
+    }
     wx.request({
         url: `${REQUEST_CONFIG.host}/api/consumeOrder/operate`,
         // 请求的方法
@@ -137,8 +183,15 @@ Page({
         // 请求成功时的处理
         success: function (res) {
             // 一般在这一打印下看看是否拿到数据
-            console.log(res.data)
             const {data} = res;
+            if(data.code !="200"){
+                wx.showModal({
+                    title: '购买失败',
+                    content: data.message,
+                    showCancel: false, // 设置为false，隐藏取消按钮
+                  });
+                return;
+            }
             const {appId,timeStamp,nonceStr,packageVal,signType,paySign} = data.data;
             wx.requestPayment
                 (
@@ -178,11 +231,11 @@ Page({
   },
 
   goodListAddCartHandle() {
-    Toast({
-      context: this,
-      selector: '#t-toast',
-      message: '点击加入购物车',
-    });
+    // Toast({
+    //   context: this,
+    //   selector: '#t-toast',
+    //   message: '点击加入购物车',
+    // });
   },
 
   navToSearchPage() {

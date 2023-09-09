@@ -16,10 +16,18 @@ page {
     height: 1200rpx;
 }
 
-.home-page-container,
-.home-page-header {
+.home-page-container {
     display: block;
     padding: 0 24rpx;
+}
+
+.btnCss {
+    background: #459DFF;
+    color: white;
+}
+
+.home-page-header {
+    display: block;
 }
 
 .home-page-header .t-search__input-container {

@@ -1,9 +1,9 @@
 <view style="text-align: center; color: #b9b9b9" wx:if="{{pageLoading}}">
-  <t-loading theme="circular" size="40rpx" text="加载中..." inherit-color />
+    <t-loading theme="circular" size="40rpx" text="加载中..." inherit-color />
 </view>
 <view class="home-page-header">
-  <view class="search" bind:tap="navToSearchPage">
-    <!-- <t-search
+    <view class="search" bind:tap="navToSearchPage">
+        <!-- <t-search
       t-class-input="t-search__input"
       t-class-input-container="t-search__input-container"
       placeholder="iphone 13 火热发售中"
@@ -12,10 +12,9 @@
     >
       <t-icon slot="left-icon" prefix="wr" name="search" size="40rpx" color="#bbb" />
     </t-search> -->
-    
-  </view>
-  <view class="swiper-wrap">
-    <t-swiper
+    </view>
+    <view class="swiper-wrap">
+        <!-- <t-swiper
       wx:if="{{imgSrcs.length > 0}}"
       current="{{current}}"
       autoplay="{{autoplay}}"
@@ -25,36 +24,21 @@
       imageProps="{{swiperImageProps}}"
       list="{{imgSrcs}}"
       bind:click="navToActivityDetail"
-    />
-  </view>
+    /> -->
+        <image src="../../common/imageUrl.jpg" style="width: 100%;" height="200rpx"></image>
+    </view>
 </view>
 <view class="home-page-container">
-  <view class="home-page-tabs">
-    <t-tabs
-      t-class="t-tabs"
-      t-class-active="tabs-external__active"
-      t-class-item="tabs-external__item"
-      defaultValue="{{0}}"
-      space-evenly="{{false}}"
-      bind:change="tabChangeHandle"
-    >
-      <t-tab-panel
-        wx:for="{{tabList}}"
-        wx:for-index="index"
-        wx:key="index"
-        label="{{item.text}}"
-        value="{{item.key}}"
-      />
-    </t-tabs>
-  </view>
-
-  <goods-list
-    wr-class="goods-list-container"
-    goodsList="{{goodsList}}"
-    bind:click="goodListClickHandle"
-    bind:addcart="goodListAddCartHandle"
-  />
-  <!-- <load-more list-is-empty="{{!goodsList.length}}" status="{{goodsListLoadStatus}}" bind:retry="onReTry" /> -->
-  <view class="current-machine-number">当前设备号为 {{deviceNo}}</view>
-  <t-toast id="t-toast" />
+    <view class="home-page-tabs">
+        <t-tabs t-class="t-tabs" t-class-active="tabs-external__active" t-class-item="tabs-external__item" defaultValue="{{0}}" space-evenly="{{false}}" bind:change="tabChangeHandle">
+            <t-tab-panel wx:for="{{tabList}}" wx:for-index="index" wx:key="index" label="{{item.text}}" value="{{item.key}}" />
+        </t-tabs>
+    </view>
+    <goods-list wr-class="goods-list-container" selectedViewIndex="{{selectedViewIndex}}" goodsList="{{goodsList}}" bind:click="selectedGoods" bind:addcart="goodListAddCartHandle" />
+    <button bindtap="goodListClickHandle" class="btnCss" disabled="{{!selectedViewIndex}}">
+        开始使用
+    </button>
+    <!-- <load-more list-is-empty="{{!goodsList.length}}" status="{{goodsListLoadStatus}}" bind:retry="onReTry" /> -->
+    <view class="current-machine-number" v-if="deviceNo!=''">当前设备号为 {{deviceNo || ''}}</view>
+    <t-toast id="t-toast" />
 </view>

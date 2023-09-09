@@ -10,12 +10,17 @@
 	addUnit: addUnit
 	};
 </wxs>
-<view class="price {{type}} wr-class">
-	<view wx:if="{{type === 'delthrough'}}" class="line" style="height:{{utils.addUnit(lineThroughWidth)}};" />
-	<view class="symbol symbol-class">{{symbol}}</view>
-	<view class="pprice">
-		<view class="integer inline">{{pArr[0]}}</view>
-		<view wx:if="{{pArr[1]}}" class="decimal inline {{decimalSmaller ? 'smaller' : ''}} decimal-class">.{{pArr[1]}}</view>
-	</view>
+<view class="price {{type}} wr-class {{moduleType}}">
+    <view wx:if="{{type === 'delthrough'}}" class="line" style="height:{{utils.addUnit(lineThroughWidth)}};" />
+    <view class="symbol symbol-class  {{selectedViewIndex==selectedId && selectedViewIndex ? 'priceFontColor':''}}">
+        {{symbol}}
+    </view>
+    <view class="pprice">
+        <view class="integer inline  {{selectedViewIndex==selectedId && selectedViewIndex ? 'priceFontColor':''}}">
+            {{pArr[0]}}
+        </view>
+        <view wx:if="{{pArr[1]}}" class="decimal inline marginLeftPrice {{selectedViewIndex==selectedId && selectedViewIndex  ? 'priceFontColor':''}} {{decimalSmaller ? 'smaller' : ''}} decimal-class">
+            .{{pArr[1]}}
+        </view>
+    </view>
 </view>
-
