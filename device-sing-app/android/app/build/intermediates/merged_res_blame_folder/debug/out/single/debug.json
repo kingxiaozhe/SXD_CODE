@@ -1,15 +1,7 @@
 [
     {
-        "merged": "com.rncode.app-merged_res-26:/mipmap-xxxhdpi_ic_launcher.png.flat",
-        "source": "com.rncode.app-main-28:/mipmap-xxxhdpi/ic_launcher.png"
-    },
-    {
         "merged": "com.rncode.app-merged_res-26:/mipmap-xxhdpi_ic_launcher.png.flat",
         "source": "com.rncode.app-main-28:/mipmap-xxhdpi/ic_launcher.png"
-    },
-    {
-        "merged": "com.rncode.app-merged_res-26:/mipmap-xhdpi_ic_launcher_round.png.flat",
-        "source": "com.rncode.app-main-28:/mipmap-xhdpi/ic_launcher_round.png"
     },
     {
         "merged": "com.rncode.app-merged_res-26:/mipmap-hdpi_ic_launcher_round.png.flat",
@@ -18,14 +10,6 @@
     {
         "merged": "com.rncode.app-merged_res-26:/mipmap-hdpi_ic_launcher.png.flat",
         "source": "com.rncode.app-main-28:/mipmap-hdpi/ic_launcher.png"
-    },
-    {
-        "merged": "com.rncode.app-merged_res-26:/mipmap-mdpi_ic_launcher_round.png.flat",
-        "source": "com.rncode.app-main-28:/mipmap-mdpi/ic_launcher_round.png"
-    },
-    {
-        "merged": "com.rncode.app-merged_res-26:/mipmap-xxhdpi_ic_launcher_round.png.flat",
-        "source": "com.rncode.app-main-28:/mipmap-xxhdpi/ic_launcher_round.png"
     },
     {
         "merged": "com.rncode.app-merged_res-26:/mipmap-xxxhdpi_ic_launcher_round.png.flat",
@@ -40,7 +24,27 @@
         "source": "com.rncode.app-main-28:/mipmap-xhdpi/ic_launcher.png"
     },
     {
+        "merged": "com.rncode.app-merged_res-26:/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "com.rncode.app-main-28:/mipmap-xxxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.rncode.app-merged_res-26:/mipmap-xhdpi_ic_launcher_round.png.flat",
+        "source": "com.rncode.app-main-28:/mipmap-xhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.rncode.app-merged_res-26:/mipmap-mdpi_ic_launcher_round.png.flat",
+        "source": "com.rncode.app-main-28:/mipmap-mdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.rncode.app-merged_res-26:/mipmap-xxhdpi_ic_launcher_round.png.flat",
+        "source": "com.rncode.app-main-28:/mipmap-xxhdpi/ic_launcher_round.png"
+    },
+    {
         "merged": "com.rncode.app-merged_res-26:/mipmap-mdpi_ic_launcher.png.flat",
         "source": "com.rncode.app-main-28:/mipmap-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.rncode.app-merged_res-26:/xml_device_admin_receiver.xml.flat",
+        "source": "com.rncode.app-main-28:/xml/device_admin_receiver.xml"
     }
 ]

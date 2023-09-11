@@ -28,5 +28,6 @@ com.rncode.app-merged_res-26 /Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/
 com.rncode.app-debug-27 /Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/debug/res
 com.rncode.app-main-28 /Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/res
 com.rncode.app-packaged_res-29 /Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/node_modules/react-native-device-info/android/build/intermediates/packaged_res/debug
-com.rncode.app-packaged_res-30 /Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/node_modules/react-native-intent-launcher/android/build/intermediates/packaged_res/debug
-com.rncode.app-packaged_res-31 /Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/node_modules/react-native-send-intent/android/build/intermediates/packaged_res/debug
+com.rncode.app-packaged_res-30 /Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/node_modules/react-native-exit-app/android/build/intermediates/packaged_res/debug
+com.rncode.app-packaged_res-31 /Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/node_modules/react-native-intent-launcher/android/build/intermediates/packaged_res/debug
+com.rncode.app-packaged_res-32 /Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/node_modules/react-native-send-intent/android/build/intermediates/packaged_res/debug

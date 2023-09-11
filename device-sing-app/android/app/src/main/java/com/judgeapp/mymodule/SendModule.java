@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.util.Log;
 import android.app.ActivityManager;
 import java.lang.Runtime;
-import android.content.Context;
 import android.os.Handler;
 import java.io.IOException;
 import com.facebook.react.bridge.NativeModule;
@@ -21,13 +20,26 @@ import android.content.ComponentName;
 import java.util.logging.Logger;  
 import android.content.pm.PackageManager;
 
+import android.content.BroadcastReceiver;
+import android.content.IntentFilter;
+import com.facebook.react.modules.core.DeviceEventManagerModule;
+import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.bridge.Arguments;
+
+import android.app.admin.DeviceAdminReceiver;
+import android.app.admin.DevicePolicyManager;
+
+
 public class SendModule extends ReactContextBaseJavaModule {
 
     private static ReactApplicationContext reactContext;
+    private BroadcastReceiver homeButtonReceiver;
+    // private String EVENT_HOME_BUTTON_PRESSED = 'homeButtonPressed';
 
   public SendModule(ReactApplicationContext reactContext) {
     super(reactContext);
     // reactContext = context;
+    this.reactContext = reactContext; // 保存传入的 ReactApplicationContext
   }
 
   @Override
@@ -127,6 +139,7 @@ public class SendModule extends ReactContextBaseJavaModule {
             }, delayMillis);
         }
     }
+    
 
     @ReactMethod
     public void executeCommandAndBroadcast() {
@@ -139,4 +152,58 @@ public class SendModule extends ReactContextBaseJavaModule {
         intent.putExtra("data", "hello");
         getReactApplicationContext().sendBroadcast(intent);
     }
-} 
+
+    @Override
+    // public void initialize() {
+    //     super.initialize();
+
+    //     // 注册Home键事件监听
+    //     homeButtonReceiver = new BroadcastReceiver() {
+    //         @Override
+    //         public void onReceive(Context context, Intent intent) {
+    //             if (intent.getAction().equals(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)) {
+    //                 String reason = intent.getStringExtra("reason");
+    //                 if (reason != null && reason.equals("homekey")) {
+    //                     // 捕捉到Home键按下事件
+    //                     WritableMap params = Arguments.createMap();
+    //                     params.putString("eventType", "homeButtonPressed");
+    //                     getReactApplicationContext()
+    //                         .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+    //                         .emit('homeButtonPressed', params);
+    //                 }
+    //             }
+    //         }
+    //     };
+
+    //     IntentFilter filter = new IntentFilter(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
+    //     getReactApplicationContext().registerReceiver(homeButtonReceiver, filter);
+    // }
+
+    // @Override
+    public void onCatalystInstanceDestroy() {
+        super.onCatalystInstanceDestroy();
+
+        // 移除监听器
+        if (homeButtonReceiver != null) {
+            getReactApplicationContext().unregisterReceiver(homeButtonReceiver);
+        }
+    }
+
+    // 在JavaScript中调用此方法以禁止Home键
+    // @ReactMethod
+    // public void disableHomeButton() {
+    //     // 在此添加代码以禁止Home键
+    // }
+
+    @ReactMethod
+    public void disableHomeButton() {
+        //  ReactApplicationContext context = getReactApplicationContext();
+        DevicePolicyManager devicePolicyManager = (DevicePolicyManager) reactContext.getSystemService(reactContext.DEVICE_POLICY_SERVICE);
+        ComponentName adminComponent = new ComponentName(reactContext, MyDeviceAdminReceiver.class);
+// devicePolicyManager.lockNow(); // 禁用Home键并锁定设备
+        if (devicePolicyManager.isAdminActive(adminComponent)) {
+            devicePolicyManager.lockNow(); // 禁用Home键并锁定设备
+        }
+    }
+}
+

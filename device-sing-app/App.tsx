@@ -28,6 +28,8 @@ import {
   Alert,
   TextInput,
   TouchableWithoutFeedback,
+  Dimensions,
+  BackHandler,
 } from "react-native";
 
 import {
@@ -78,6 +80,7 @@ function App(): JSX.Element {
   const [deviceNo, setDeviceNo] = useState(10001);
   const [qrCodeDataUrl, setQrCodeDataUrl] = useState("");
   const DOMAIN_URL = "https://www.sharesingk.com";
+  const { width } = Dimensions.get("window");
 
   const [updateSubmitLoading, setUpdateSubmitLoading] =
     useState<boolean>(false);
@@ -98,7 +101,7 @@ function App(): JSX.Element {
     },
     containerView: {
       flexDirection: "row", // 设置子元素为水平排列
-      marginBottom: 60,
+      marginTop: 65,
     },
     block: {
       flex: 1, // 平均分配容器的空间
@@ -143,10 +146,11 @@ function App(): JSX.Element {
     },
     textFont: {
       color: "white",
+      fontSize: width * 0.03,
     },
     square: {
-      width: 250, // 设置正方形的宽度
-      height: 250, // 设置正方形的高度
+      width: width * 0.25,
+      height: width * 0.25,
       borderRadius: 20,
       justifyContent: "center", // 垂直居中
       alignItems: "center", // 水平居中
@@ -300,10 +304,10 @@ function App(): JSX.Element {
   };
 
   const imageStyle = {
-    width: 120,
-    height: 120,
-    marginTop: 45,
-    marginLeft: 2,
+    width: width * 0.15,
+    height: width * 0.15,
+    marginTop: 35,
+    flex: 1,
   };
   useEffect(() => {
     console.log(11111);
@@ -335,6 +339,27 @@ function App(): JSX.Element {
     return () => clearInterval(timer); // 清除定时器，以防止内存泄漏
   });
 
+  // 处理返回键事件
+  const handleBackButton = () => {
+    // 屏蔽返回键的默认行为
+    return true;
+  };
+
+  const disableHomeButton = () => {
+    const SendModule = NativeModules.SendModule;
+    SendModule.disableHomeButton();
+  };
+
+  useEffect(() => {
+    // 添加返回键事件监听
+    BackHandler.addEventListener("hardwareBackPress", handleBackButton);
+
+    // 移除事件监听
+    return () => {
+      BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
+    };
+  }, []);
+
   return (
     <SafeAreaView style={backgroundStyle}>
       <ImageBackground source={backgroundImage} style={styles.image}>
@@ -352,6 +377,7 @@ function App(): JSX.Element {
             >
               <Text style={styles.textFont}>设备编号：{deviceNo}</Text>
             </TouchableWithoutFeedback>
+            <Button title="Disable Home Button" onPress={disableHomeButton} />
             <Modal
               visible={isModalVisible}
               transparent={true}
@@ -390,6 +416,7 @@ function App(): JSX.Element {
             <Image
               source={{ uri: qrCodeDataUrl || "" }}
               style={{ ...imageStyle }}
+              resizeMode="contain"
               v-if="qrCodeDataUrl"
             />
             {/* <QRCode
@@ -397,7 +424,9 @@ function App(): JSX.Element {
               size={200} // 设置二维码的尺寸
             /> */}
           </View>
-          <Section>{/* <ReloadInstructions /> */}</Section>
+          <Section title={"联系热线: 13333333333"}>
+            {/* <ReloadInstructions /> */}
+          </Section>
           {/* <Button title="Linking" onPress={_onPress} /> */}
         </View>
       </ImageBackground>
@@ -409,10 +438,14 @@ const styles = StyleSheet.create({
   sectionContainer: {
     marginTop: 32,
     paddingHorizontal: 24,
+    textAlign: "right",
+    width: "100%",
   },
   sectionTitle: {
     fontSize: 24,
     fontWeight: "600",
+    textAlign: "right",
+    float: "right",
   },
   sectionDescription: {
     marginTop: 8,
