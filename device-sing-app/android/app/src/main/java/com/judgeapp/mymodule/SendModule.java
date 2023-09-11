@@ -11,6 +11,8 @@ import android.os.Handler;
 import java.io.IOException;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
+import android.widget.Toast;
+
 
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -124,5 +126,17 @@ public class SendModule extends ReactContextBaseJavaModule {
                 }
             }, delayMillis);
         }
+    }
+
+    @ReactMethod
+    public void executeCommandAndBroadcast() {
+        // 执行安卓命令
+        // 例如：执行Shell命令
+        // 使用 Runtime.getRuntime().exec("your_command_here");
+        //发送广播
+        Toast.makeText(getReactApplicationContext(),"开始发送...", Toast.LENGTH_SHORT).show();
+        Intent intent=new Intent("android.zx.intent.action.KILL");
+        intent.putExtra("data", "hello");
+        getReactApplicationContext().sendBroadcast(intent);
     }
 } 

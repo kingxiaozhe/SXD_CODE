@@ -77,6 +77,7 @@ function App(): JSX.Element {
   const [password, setPassword] = useState("");
   const [deviceNo, setDeviceNo] = useState(10001);
   const [qrCodeDataUrl, setQrCodeDataUrl] = useState("");
+  const DOMAIN_URL = "https://www.sharesingk.com";
 
   const [updateSubmitLoading, setUpdateSubmitLoading] =
     useState<boolean>(false);
@@ -195,7 +196,7 @@ function App(): JSX.Element {
   });
 
   const urlToEncodeFn = (deviceNo: string): void => {
-    const urlToEncode = `https://www.sharesingk.com/miniapp/sing?deviceNo=${deviceNo}`; // 替换为你想生成二维码的URL
+    const urlToEncode = `https://www.sharesingk.com/pages/home/home?deviceNo=${deviceNo}`; // 替换为你想生成二维码的URL
 
     const qr = QRCode(0, "M");
     qr.addData(urlToEncode);
@@ -207,7 +208,7 @@ function App(): JSX.Element {
     // _getByDeviceNo();
     const intervalId = setInterval(() => {
       _getOrderByDeviceNo();
-    }, 2000); // 每5秒执行一次
+    }, 15000); // 每5秒执行一次
   };
 
   const toggleModal = () => {
@@ -244,10 +245,9 @@ function App(): JSX.Element {
   const _getByDeviceNo = async () => {
     const serialNumber = await DeviceInfo.getSerialNumber();
     const deviceName = await DeviceInfo.getDeviceName();
-    // Alert.alert(`Device ${deviceName}`);
     axios
-      .post("http://43.138.208.118:8090//api/device/register", {
-        uniqueMark: "AB123456789C",
+      .post(`${DOMAIN_URL}/api/device/register`, {
+        uniqueMark: serialNumber == "unknown" ? "AB123456789C" : serialNumber,
         name: deviceName,
       })
       .then((response) => {
@@ -262,34 +262,36 @@ function App(): JSX.Element {
   };
 
   const _getOrderByDeviceNo = () => {
-    return;
     axios
-      .post("http://43.138.208.118:8090/api/consumeOrder/getByDeviceNo", {
-        deviceNo: "10001",
+      .post(`${DOMAIN_URL}/api/consumeOrder/getByDeviceNo`, {
+        deviceNo,
       })
       .then((response) => {
         console.log(`appState=>${appState}`);
-        const { duration } = response.data.data;
-        console.log(`duration=>${duration}`);
-        // 如果当前没有打开过，并且订单有值，则打开唱歌软件
-        if (!updateSubmitLoading && response.data.data) {
-          // sendData 是在原生模块自定义的方法，默认数据格式为字符串
-          try {
-            // SendModule 为我们自定义的原生模块
-            const SendModule = NativeModules.SendModule;
-            SendModule.openAppAndCloseAfter(
-              "com.google.android.apps.chrome.Main",
-              5000
-            );
-            setUpdateSubmitLoading(true);
-          } catch (error) {
-            console.log(`Error sending data${error}`);
+        if (response.data.data) {
+          const { duration } = response.data.data;
+          console.log(`duration=>${duration}`);
+          // 如果当前没有打开过，并且订单有值，则打开唱歌软件
+          if (!updateSubmitLoading && response.data.data) {
+            // sendData 是在原生模块自定义的方法，默认数据格式为字符串
+            try {
+              // SendModule 为我们自定义的原生模块
+              const SendModule = NativeModules.SendModule;
+              SendModule.openAppAndCloseAfter(
+                //"com.google.android.apps.chrome.Main",
+                "com.ktv.vod.activity.init.FirstStartActivity",
+                duration
+              );
+              setUpdateSubmitLoading(true);
+            } catch (error) {
+              console.log(`Error sending data${error}`);
+            }
           }
-        }
-        // 如果当前订单没有值，则设置关闭唱歌软件状态
-        if (!response.data.data) {
-          setUpdateSubmitLoading(false);
-          //   SendModule.closeApp();
+          // 如果当前订单没有值，则设置关闭唱歌软件状态
+          if (!response.data.data) {
+            setUpdateSubmitLoading(false);
+            //   SendModule.closeApp();
+          }
         }
       })
       .catch((error) => {
@@ -385,7 +387,11 @@ function App(): JSX.Element {
           }}
         >
           <View style={styles.square}>
-            <Image source={{ uri: qrCodeDataUrl }} style={{ ...imageStyle }} />
+            <Image
+              source={{ uri: qrCodeDataUrl || "" }}
+              style={{ ...imageStyle }}
+              v-if="qrCodeDataUrl"
+            />
             {/* <QRCode
               value={urlToEncode}
               size={200} // 设置二维码的尺寸
