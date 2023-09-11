@@ -2,11 +2,10 @@ import { useEffect, useState } from 'react';
 import { Button, Card, Divider, FormInstance, Input, message, Modal, Radio, Table, Tag } from 'antd';
 import { ResponseData } from '@/utils/request';
 import {
-  createData,
+  updPassword,
   // createDeviceData,
   getTokenData,
   generateImage,
-  detailData,
   queryList,
   removeData,
   updateData as updateDataService,
@@ -75,14 +74,17 @@ function App() {
   const [updateSubmitLoading, setUpdateSubmitLoading] = useState<boolean>(false);
   const [updateFormVisible, setUpdateFormVisible] = useState<boolean>(false);
   const [updateData, setUpdateData] = useState<Partial<TableListItem>>({});
-  const [detailUpdateLoading, setDetailUpdateLoading] = useState<number[]>([]);
-  const detailUpdateData = async (id: number) => {
-    setDetailUpdateLoading([id]);
+  const [detailUpdateLoading, setDetailUpdateLoading] = useState<string[]>([]);
+  const detailUpdateData = async (code: string) => {
+    setDetailUpdateLoading([code]);
 
-    const response: ResponseData<TableListItem> = await detailData(id.toString());
-    const { data } = response;
+    // const response: ResponseData<TableListItem> = await detailData(id.toString());
+    // const { data } = response;
+    const { mobile, name } = list.filter((item: TableListItem) => item.code === code)[0];
     setUpdateData({
-      ...data,
+      code,
+      mobile,
+      name,
     });
     setUpdateFormVisible(true);
 
@@ -97,8 +99,8 @@ function App() {
   const updateSubmit = async (values: TableListItem) => {
     setUpdateSubmitLoading(true);
 
-    const { id, ...params } = values;
-    await updateDataService(id, { ...params });
+    const { code, ...params } = values;
+    await updateDataService(code || '', { ...params });
     updataFormCancel();
     message.success('编辑成功！');
     getList(pagination.current);
@@ -109,52 +111,35 @@ function App() {
   // 新增
   const [createSubmitLoading, setCreateSubmitLoading] = useState<boolean>(false);
   const [createFormVisible, setCreateFormVisible] = useState<boolean>(false);
-  const [deviceSubmitLoading, setDeviceSubmitLoading] = useState<boolean>(false);
+  // const [deviceSubmitLoading, setDeviceSubmitLoading] = useState<boolean>(false);
   const [deviceFormVisible, setDeviceFormVisible] = useState<boolean>(false);
+  const detailUpdatePassword = async (id: number) => {
+    setDetailUpdateLoading([id]);
+
+    // const response: ResponseData<TableListItem> = await detailData(id.toString());
+    // const { data } = response;
+    const { id: filterId, name } = list.filter((item: TableListItem) => item.id === id)[0];
+    setUpdateData({
+      id: filterId,
+      name,
+    });
+    setCreateFormVisible(true);
+
+    setDetailUpdateLoading([]);
+  };
+
   const createSubmit = async (values: Omit<TableListItem, 'id'>, form: FormInstance) => {
     setCreateSubmitLoading(true);
-
-    await createData(values);
-    form.resetFields();
-    setCreateFormVisible(false);
-    message.success('新增成功！');
-    getList(1);
-
+    const { code, message: serviceMsg } = await updPassword(values);
+    if (code === '200') {
+      form.resetFields();
+      setCreateFormVisible(false);
+      message.success('编辑成功！');
+      getList(1);
+    } else {
+      message.error(`新增失败！${serviceMsg}`);
+    }
     setCreateSubmitLoading(false);
-  };
-  // 根据设备号，输出设备二维码
-  const createDeviceSubmit = async (values: Omit<TableListItem, 'id'>) => {
-    setDeviceSubmitLoading(true);
-    // 当前小程序配置信息
-    const miniConfig = {
-      appid: 'wx61577d6c2f49df3c',
-      secret: '4a2768ac886f2980a5611ec92e413a92',
-    };
-    // 根据小程序配置信息获取小程序Token
-    const miniToken = await getTokenData(miniConfig);
-    generateImage({
-      token: miniToken.access_token,
-      scene: `device_id=${values.name}`,
-      page: 'pages/home/home',
-    })
-      .then((response) => {
-        const url = window.URL.createObjectURL(new Blob([response]));
-        const link = document.createElement('a');
-        link.href = url;
-        link.setAttribute('download', `设备号[${values.name}]二维码.png`); // 你的文件名
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(url);
-      })
-      .catch((error) => {
-        console.error('There was an error fetching the binary data: ', error);
-      });
-    // form.resetFields();
-    setDeviceFormVisible(false);
-    message.success('新增成功！');
-
-    setDeviceSubmitLoading(false);
   };
 
   const columns: ColumnsType<TableListItem> = [
@@ -165,27 +150,17 @@ function App() {
       render: (_, record, index) => <>{(pagination.current - 1) * pagination.pageSize + index + 1}</>,
     },
     {
-      title: '名称',
+      title: '客服编号',
+      dataIndex: 'code',
+    },
+    {
+      title: '客服名称',
       dataIndex: 'name',
-      render: (_, record) => (
-        <a href={record.href} target='_blank' rel='noreferrer'>
-          {record.name}
-        </a>
-      ),
     },
     {
-      title: '套餐时长',
-      dataIndex: 'duration',
+      title: '手机号码',
+      dataIndex: 'mobile',
     },
-    {
-      title: '套餐金额',
-      dataIndex: 'amount',
-    },
-    // {
-    //   title: '套餐金额',
-    //   dataIndex: 'amount',
-    //   render: (_, record) => (record.type === 'header' ? <Tag color='green'>头部</Tag> : <Tag color='cyan'>底部</Tag>),
-    // },
     {
       title: '操作',
       key: 'action',
@@ -194,15 +169,19 @@ function App() {
         <>
           <Button
             type='link'
-            loading={detailUpdateLoading.includes(record.id)}
-            onClick={() => detailUpdateData(record.id)}
+            loading={detailUpdateLoading.includes(record.code || '')}
+            onClick={() => detailUpdateData(record.code || '')}
           >
             编辑
           </Button>
           <Divider type='vertical' />
-          <Button type='link' loading={deleteLoading.includes(record.id)} onClick={() => deleteTableData(record.id)}>
-            删除
-          </Button>
+          {/* <Button
+            type='link'
+            loading={deleteLoading.includes(record.id)}
+            onClick={() => detailUpdatePassword(record.id)}
+          >
+            修改密码
+          </Button> */}
         </>
       ),
     },
@@ -214,9 +193,9 @@ function App() {
         bordered={false}
         title={
           <>
-            <Button type='primary' onClick={() => setCreateFormVisible(true)}>
+            {/* <Button type='primary' onClick={() => setCreateFormVisible(true)}>
               新增
-            </Button>
+            </Button> */}
             {/* <Button className='otherBtn' type='primary' onClick={() => setDeviceFormVisible(true)}>
               生成设备二维码
             </Button> */}
@@ -252,14 +231,15 @@ function App() {
         visible={createFormVisible}
         onSubmit={createSubmit}
         onSubmitLoading={createSubmitLoading}
+        values={updateData}
       />
 
-      <DeviceForm
+      {/* <DeviceForm
         onCancel={() => setDeviceFormVisible(false)}
         visible={deviceFormVisible}
         onSubmit={createDeviceSubmit}
         onSubmitLoading={deviceSubmitLoading}
-      />
+      /> */}
 
       {updateFormVisible && Object.keys(updateData).length > 0 ? (
         <UpdateForm

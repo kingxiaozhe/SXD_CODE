@@ -38,4 +38,7 @@ export default {
 
   'universal-layout.menu.home.consumePackage.list': '套餐列表',
   'universal-layout.menu.home.consumePackage.order.list': '订单列表',
+  'universal-layout.menu.home.consumePackage.device.list': '设备列表',
+  'universal-layout.menu.home.consumePackage.user.list': '用户列表',
+  'universal-layout.menu.home.consumePackage.hotLine.list': '客服热线',
 };

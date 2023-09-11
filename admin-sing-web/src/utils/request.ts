@@ -8,7 +8,7 @@ import settings from '@/config/settings';
 import { getToken } from '@/utils/localToken';
 
 export interface ResponseData<T = unknown> {
-  code: number;
+  code: number | string;
   data?: T;
   msg?: string;
 }
@@ -46,7 +46,6 @@ const errorHandler = (error: any) => {
         message: `提示`,
         description: customCodeMessage[code] || msg || 'Error',
       });
-
       if (code === 10002) {
         setTimeout(() => {
           window.location.href = '/user/login';
@@ -121,8 +120,8 @@ request.interceptors.request.use(
 request.interceptors.response.use(
   (response: AxiosResponse<ResponseData>) => {
     const res = response.data;
-    const { code } = res;
-
+    // const { code } = res;
+    console.log(res);
     // 自定义状态码验证
     // if (code !== 0) {
     //   // eslint-disable-next-line prefer-promise-reject-errors

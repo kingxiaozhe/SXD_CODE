@@ -47,6 +47,27 @@ const universalLayoutRotes: IRouter[] = [
         },
         component: lazy(() => import('@/pages/consumePackage/orderList')),
       },
+      {
+        path: 'device/list',
+        meta: {
+          title: 'universal-layout.menu.home.consumePackage.device.list',
+        },
+        component: lazy(() => import('@/pages/consumePackage/deviceList')),
+      },
+      {
+        path: 'user/list',
+        meta: {
+          title: 'universal-layout.menu.home.consumePackage.user.list',
+        },
+        component: lazy(() => import('@/pages/consumePackage/userList')),
+      },
+      {
+        path: 'hot/list',
+        meta: {
+          title: 'universal-layout.menu.home.consumePackage.hotLine.list',
+        },
+        component: lazy(() => import('@/pages/consumePackage/hotLineList')),
+      },
       // {
       //   path: 'custombreadcrumbs',
       //   meta: {

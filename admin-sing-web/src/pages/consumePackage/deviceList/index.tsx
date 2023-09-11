@@ -4,6 +4,7 @@ import { ResponseData } from '@/utils/request';
 import {
   createData,
   // createDeviceData,
+  queryDictInfoList,
   getTokenData,
   generateImage,
   detailData,
@@ -38,6 +39,8 @@ function App() {
     });
     const data = response.data || { list: [], total: 0 };
 
+    // debugger;
+
     setList(data.list || []);
     setPagination({
       ...pagination,
@@ -49,6 +52,7 @@ function App() {
   };
   useEffect(() => {
     getList(1);
+    queryDictInfoList();
   }, []);
 
   // 删除
@@ -165,47 +169,75 @@ function App() {
       render: (_, record, index) => <>{(pagination.current - 1) * pagination.pageSize + index + 1}</>,
     },
     {
-      title: '名称',
+      title: '设备号',
+      dataIndex: 'id',
+    },
+    {
+      title: '设备激活时间',
+      dataIndex: 'activateTime',
+    },
+    {
+      title: '最近开机时间',
+      dataIndex: 'lastDate',
+    },
+    {
+      title: '归属商户号',
+      dataIndex: 'merchantCode',
+    },
+    {
+      title: '归属商户名称',
+      dataIndex: 'merchantName',
+    },
+    {
+      title: '设备名称',
       dataIndex: 'name',
+    },
+    {
+      title: '设备开机次数',
+      dataIndex: 'openTimes',
+    },
+    {
+      title: '总营业额',
+      dataIndex: 'totalAmount',
+    },
+    {
+      title: '设备唯一标识',
+      dataIndex: 'uniqueMark',
+    },
+    {
+      title: '设备状态：0-启用，1-未启用',
+      dataIndex: 'status',
       render: (_, record) => (
-        <a href={record.href} target='_blank' rel='noreferrer'>
-          {record.name}
+        <a target='_blank' rel='noreferrer'>
+          {record.status ? '启动' : '未弃用'}
         </a>
       ),
-    },
-    {
-      title: '套餐时长',
-      dataIndex: 'duration',
-    },
-    {
-      title: '套餐金额',
-      dataIndex: 'amount',
     },
     // {
     //   title: '套餐金额',
     //   dataIndex: 'amount',
     //   render: (_, record) => (record.type === 'header' ? <Tag color='green'>头部</Tag> : <Tag color='cyan'>底部</Tag>),
     // },
-    {
-      title: '操作',
-      key: 'action',
-      width: 200,
-      render: (_, record) => (
-        <>
-          <Button
-            type='link'
-            loading={detailUpdateLoading.includes(record.id)}
-            onClick={() => detailUpdateData(record.id)}
-          >
-            编辑
-          </Button>
-          <Divider type='vertical' />
-          <Button type='link' loading={deleteLoading.includes(record.id)} onClick={() => deleteTableData(record.id)}>
-            删除
-          </Button>
-        </>
-      ),
-    },
+    // {
+    //   title: '操作',
+    //   key: 'action',
+    //   width: 200,
+    //   render: (_, record) => (
+    //     <>
+    //       <Button
+    //         type='link'
+    //         loading={detailUpdateLoading.includes(record.id)}
+    //         onClick={() => detailUpdateData(record.id)}
+    //       >
+    //         编辑
+    //       </Button>
+    //       <Divider type='vertical' />
+    //       <Button type='link' loading={deleteLoading.includes(record.id)} onClick={() => deleteTableData(record.id)}>
+    //         删除
+    //       </Button>
+    //     </>
+    //   ),
+    // },
   ];
 
   return (
@@ -214,10 +246,10 @@ function App() {
         bordered={false}
         title={
           <>
-            <Button type='primary' onClick={() => setCreateFormVisible(true)}>
+            {/* <Button type='primary' onClick={() => setCreateFormVisible(true)}>
               新增
             </Button>
-            {/* <Button className='otherBtn' type='primary' onClick={() => setDeviceFormVisible(true)}>
+            <Button className='otherBtn' type='primary' onClick={() => setDeviceFormVisible(true)}>
               生成设备二维码
             </Button> */}
           </>

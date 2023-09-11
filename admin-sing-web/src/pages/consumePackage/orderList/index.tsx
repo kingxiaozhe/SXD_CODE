@@ -180,12 +180,14 @@ function App() {
       dataIndex: 'deviceNo',
     },
     {
-      title: '订单开始时间',
+      title: '开始时间',
       dataIndex: 'orderStartDate',
+      render: (_, record) => <p>{record.orderStartDate || '--'}</p>,
     },
     {
-      title: '订单结束时间',
+      title: '结束时间',
       dataIndex: 'orderEndDate',
+      render: (_, record) => <p>{record.orderEndDate || '--'}</p>,
     },
     {
       title: '支付模式',

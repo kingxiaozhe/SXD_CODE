@@ -84,9 +84,13 @@ export default [
         };
       }
       return {
-        code: 10002,
-        data: {},
-        msg: '未登录',
+        code: 0,
+        data: {
+          id: 1,
+          name: 'Admins',
+          avatar: '',
+          roles: ['admin'],
+        },
       };
     },
   },

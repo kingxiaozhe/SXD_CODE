@@ -121,16 +121,17 @@ request.interceptors.request.use(
 request.interceptors.response.use(
   (response: AxiosResponse<ResponseData>) => {
     const res = response.data;
-    const { code } = res;
+    console.log(res);
+    // const { code } = res;
 
-    // 自定义状态码验证
-    if (code !== 0) {
-      // eslint-disable-next-line prefer-promise-reject-errors
-      return Promise.reject({
-        response,
-        message: 'CustomError',
-      });
-    }
+    // // 自定义状态码验证
+    // if (code !== 0) {
+    //   // eslint-disable-next-line prefer-promise-reject-errors
+    //   return Promise.reject({
+    //     response,
+    //     message: 'CustomError',
+    //   });
+    // }
 
     return response;
   },

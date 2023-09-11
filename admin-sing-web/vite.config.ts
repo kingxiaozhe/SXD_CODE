@@ -9,7 +9,8 @@ export default defineConfig(({ command, mode }) => {
   const root = process.cwd();
 
   const env = loadEnv(mode, root);
-  const { VITE_APP_PORT, VITE_APP_MOCK, VITE_SERVICE_DOMAIN, VITE_SERVICE_PORT, VITE_WX_DOMAIN } = env;
+  const { VITE_APP_PORT, VITE_APP_MOCK, VITE_SERVICE_DOMAIN, VITE_APP_APIHOST1, VITE_SERVICE_PORT, VITE_WX_DOMAIN } =
+    env;
 
   const isBuild = command === 'build';
 
@@ -61,6 +62,30 @@ export default defineConfig(({ command, mode }) => {
           rewrite: (path) => path.replace(/^\/data/, '/api'),
         },
         '/api/dictInfo': {
+          // 用于开发环境下的转发请求http://192.168.43.59:8090/api/consumePackage/list
+          // 更多请参考：https://vitejs.dev/config/#server-proxy
+          // target: 'http://192.168.43.59:8090',
+          target: `${VITE_SERVICE_DOMAIN}:${VITE_SERVICE_PORT}`,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/data/, '/api'),
+        },
+        '/api/device': {
+          // 用于开发环境下的转发请求http://192.168.43.59:8090/api/consumePackage/list
+          // 更多请参考：https://vitejs.dev/config/#server-proxy
+          // target: 'http://192.168.43.59:8090',
+          target: `${VITE_SERVICE_DOMAIN}:${VITE_SERVICE_PORT}`,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/data/, '/api'),
+        },
+        '/api/userInfo': {
+          // 用于开发环境下的转发请求http://192.168.43.59:8090/api/consumePackage/list
+          // 更多请参考：https://vitejs.dev/config/#server-proxy
+          // target: 'http://192.168.43.59:8090',
+          target: `${VITE_SERVICE_DOMAIN}:${VITE_SERVICE_PORT}`,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/data/, '/api'),
+        },
+        '/api/hotLine': {
           // 用于开发环境下的转发请求http://192.168.43.59:8090/api/consumePackage/list
           // 更多请参考：https://vitejs.dev/config/#server-proxy
           // target: 'http://192.168.43.59:8090',

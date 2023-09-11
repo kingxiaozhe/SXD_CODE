@@ -2,11 +2,10 @@ import { useEffect, useState } from 'react';
 import { Button, Card, Divider, FormInstance, Input, message, Modal, Radio, Table, Tag } from 'antd';
 import { ResponseData } from '@/utils/request';
 import {
-  createData,
+  updPassword,
   // createDeviceData,
   getTokenData,
   generateImage,
-  detailData,
   queryList,
   removeData,
   updateData as updateDataService,
@@ -79,10 +78,14 @@ function App() {
   const detailUpdateData = async (id: number) => {
     setDetailUpdateLoading([id]);
 
-    const response: ResponseData<TableListItem> = await detailData(id.toString());
-    const { data } = response;
+    // const response: ResponseData<TableListItem> = await detailData(id.toString());
+    // const { data } = response;
+    const { name, mobile, roleName } = list.filter((item: TableListItem) => item.id === id)[0];
     setUpdateData({
-      ...data,
+      id,
+      name,
+      mobile,
+      roleName,
     });
     setUpdateFormVisible(true);
 
@@ -111,15 +114,33 @@ function App() {
   const [createFormVisible, setCreateFormVisible] = useState<boolean>(false);
   const [deviceSubmitLoading, setDeviceSubmitLoading] = useState<boolean>(false);
   const [deviceFormVisible, setDeviceFormVisible] = useState<boolean>(false);
+  const detailUpdatePassword = async (id: number) => {
+    setDetailUpdateLoading([id]);
+
+    // const response: ResponseData<TableListItem> = await detailData(id.toString());
+    // const { data } = response;
+    const { id: filterId, name } = list.filter((item: TableListItem) => item.id === id)[0];
+    debugger;
+    setUpdateData({
+      id: filterId,
+      name,
+    });
+    setCreateFormVisible(true);
+
+    setDetailUpdateLoading([]);
+  };
+
   const createSubmit = async (values: Omit<TableListItem, 'id'>, form: FormInstance) => {
     setCreateSubmitLoading(true);
-
-    await createData(values);
-    form.resetFields();
-    setCreateFormVisible(false);
-    message.success('新增成功！');
-    getList(1);
-
+    const { code, message: serviceMsg } = await updPassword(values);
+    if (code === '200') {
+      form.resetFields();
+      setCreateFormVisible(false);
+      message.success('编辑成功！');
+      getList(1);
+    } else {
+      message.error(`新增失败！${serviceMsg}`);
+    }
     setCreateSubmitLoading(false);
   };
   // 根据设备号，输出设备二维码
@@ -165,7 +186,7 @@ function App() {
       render: (_, record, index) => <>{(pagination.current - 1) * pagination.pageSize + index + 1}</>,
     },
     {
-      title: '名称',
+      title: '用户账号',
       dataIndex: 'name',
       render: (_, record) => (
         <a href={record.href} target='_blank' rel='noreferrer'>
@@ -174,12 +195,12 @@ function App() {
       ),
     },
     {
-      title: '套餐时长',
-      dataIndex: 'duration',
+      title: '手机号码',
+      dataIndex: 'mobile',
     },
     {
-      title: '套餐金额',
-      dataIndex: 'amount',
+      title: '用户角色',
+      dataIndex: 'roleName',
     },
     // {
     //   title: '套餐金额',
@@ -200,8 +221,12 @@ function App() {
             编辑
           </Button>
           <Divider type='vertical' />
-          <Button type='link' loading={deleteLoading.includes(record.id)} onClick={() => deleteTableData(record.id)}>
-            删除
+          <Button
+            type='link'
+            loading={deleteLoading.includes(record.id)}
+            onClick={() => detailUpdatePassword(record.id)}
+          >
+            修改密码
           </Button>
         </>
       ),
@@ -214,9 +239,9 @@ function App() {
         bordered={false}
         title={
           <>
-            <Button type='primary' onClick={() => setCreateFormVisible(true)}>
+            {/* <Button type='primary' onClick={() => setCreateFormVisible(true)}>
               新增
-            </Button>
+            </Button> */}
             {/* <Button className='otherBtn' type='primary' onClick={() => setDeviceFormVisible(true)}>
               生成设备二维码
             </Button> */}
@@ -252,6 +277,7 @@ function App() {
         visible={createFormVisible}
         onSubmit={createSubmit}
         onSubmitLoading={createSubmitLoading}
+        values={updateData}
       />
 
       <DeviceForm

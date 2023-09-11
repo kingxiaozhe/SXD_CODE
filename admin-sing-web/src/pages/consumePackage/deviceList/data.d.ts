@@ -24,9 +24,7 @@ export interface TableListItem {
   amount?: string;
   appid?: string;
   secret?: string;
-  subOrderNo?: string;
-  orderStartDate?: string;
-  orderEndDate?: string;
+  status?: string;
 }
 
 export interface IResponseData {

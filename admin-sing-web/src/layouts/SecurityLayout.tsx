@@ -21,7 +21,16 @@ export default memo(({ children }: SecurityLayoutProps) => {
 
   const getUser = useCallback(async () => {
     try {
-      const response: ResponseData<CurrentUser> = await queryCurrent();
+      const response: ResponseData<CurrentUser> = {
+        code: 0,
+        msg: '',
+        data: {
+          id: 1,
+          name: 'Admins',
+          avatar: '',
+          roles: ['admin'],
+        },
+      };
       const { data } = response;
       setUser({
         ...user,

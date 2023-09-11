@@ -26,12 +26,20 @@ export default memo(() => {
   const handleSubmit = async (values: LoginParamsType) => {
     setSubmitLoading(true);
     try {
-      const response: ResponseData<LoginResponseData> = await accountLogin(values);
-      const { data } = response;
-      setToken(data?.token || '');
-      setLoginStatus('ok');
-      message.success(t('page.user.login.form.login-success'));
-      navigate('/', { replace: true });
+      const { username, password } = values;
+      const response: ResponseData<LoginResponseData> = await accountLogin({
+        name: username,
+        password,
+      });
+      const { code } = response;
+      if (code === '200') {
+        setToken('admin');
+        setLoginStatus('ok');
+        message.success(t('page.user.login.form.login-success'));
+        navigate('/home/table', { replace: true });
+      } else {
+        message.error(t('page.user.login.form.login-error'));
+      }
     } catch (error: any) {
       if (error.message && error.message === 'CustomError') {
         setLoginStatus('error');
@@ -80,7 +88,7 @@ export default memo(() => {
             {t('page.user.login.form.btn-submit')}
           </Button>
           <div className={style['text-align-right']}>
-            <Link to='/user/register'>{t('page.user.login.form.btn-jump')}</Link>
+            {/* <Link to='/user/register'>{t('page.user.login.form.btn-jump')}</Link> */}
           </div>
         </Form.Item>
 

@@ -38,4 +38,7 @@ export default {
 
   'universal-layout.menu.home.consumePackage.list': 'Consume Package List',
   'universal-layout.menu.home.consumePackage.order.list': 'Order List',
+  'universal-layout.menu.home.consumePackage.device.list': 'Device List',
+  'universal-layout.menu.home.consumePackage.user.list': 'User List',
+  'universal-layout.menu.home.consumePackage.hotLine.list': 'HotLine List',
 };

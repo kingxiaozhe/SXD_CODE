@@ -24,7 +24,7 @@ export const userState = atom({
 export const userMessageState = selector({
   key: 'userMessageState',
   get: async () => {
-    const response: ResponseData<number> = await queryMessage();
+    const response: ResponseData<number> = { code: 0, data: 18 };
     const { data, code } = response;
     if (code !== 0) {
       throw response.msg;

@@ -16,7 +16,7 @@ export interface PaginationConfig {
 
 export interface TableListItem {
   id: number;
-  name: string;
+  name?: string;
   desc?: string;
   href?: string;
   type?: string;
@@ -24,9 +24,9 @@ export interface TableListItem {
   amount?: string;
   appid?: string;
   secret?: string;
-  subOrderNo?: string;
-  orderStartDate?: string;
-  orderEndDate?: string;
+  mobile?: string;
+  roleName?: string;
+  code?: string;
 }
 
 export interface IResponseData {
