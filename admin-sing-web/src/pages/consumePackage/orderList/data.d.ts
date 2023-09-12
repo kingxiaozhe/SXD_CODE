@@ -27,6 +27,9 @@ export interface TableListItem {
   subOrderNo?: string;
   orderStartDate?: string;
   orderEndDate?: string;
+  orderDate?: string;
+  successTime?: string;
+  minWidth?: number; // 设置最小列宽度
 }
 
 export interface IResponseData {

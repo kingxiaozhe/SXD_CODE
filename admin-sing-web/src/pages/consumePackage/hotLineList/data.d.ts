@@ -15,7 +15,7 @@ export interface PaginationConfig {
 }
 
 export interface TableListItem {
-  id: number;
+  id?: number;
   name?: string;
   desc?: string;
   href?: string;

@@ -112,21 +112,7 @@ function App() {
   const [createSubmitLoading, setCreateSubmitLoading] = useState<boolean>(false);
   const [createFormVisible, setCreateFormVisible] = useState<boolean>(false);
   // const [deviceSubmitLoading, setDeviceSubmitLoading] = useState<boolean>(false);
-  const [deviceFormVisible, setDeviceFormVisible] = useState<boolean>(false);
-  const detailUpdatePassword = async (id: number) => {
-    setDetailUpdateLoading([id]);
-
-    // const response: ResponseData<TableListItem> = await detailData(id.toString());
-    // const { data } = response;
-    const { id: filterId, name } = list.filter((item: TableListItem) => item.id === id)[0];
-    setUpdateData({
-      id: filterId,
-      name,
-    });
-    setCreateFormVisible(true);
-
-    setDetailUpdateLoading([]);
-  };
+  // const [deviceFormVisible, setDeviceFormVisible] = useState<boolean>(false);
 
   const createSubmit = async (values: Omit<TableListItem, 'id'>, form: FormInstance) => {
     setCreateSubmitLoading(true);

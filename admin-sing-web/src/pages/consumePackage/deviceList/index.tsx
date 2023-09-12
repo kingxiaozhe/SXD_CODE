@@ -166,15 +166,18 @@ function App() {
       title: '序号',
       dataIndex: 'index',
       width: 80,
+      fixed: 'left', // 将该列固定在左侧
       render: (_, record, index) => <>{(pagination.current - 1) * pagination.pageSize + index + 1}</>,
     },
     {
       title: '设备号',
       dataIndex: 'id',
+      fixed: 'left', // 将该列固定在左侧
     },
     {
       title: '设备激活时间',
       dataIndex: 'activateTime',
+      fixed: 'left', // 将该列固定在左侧
     },
     {
       title: '最近开机时间',
@@ -205,13 +208,9 @@ function App() {
       dataIndex: 'uniqueMark',
     },
     {
-      title: '设备状态：0-启用，1-未启用',
+      title: '设备状态',
       dataIndex: 'status',
-      render: (_, record) => (
-        <a target='_blank' rel='noreferrer'>
-          {record.status ? '启动' : '未弃用'}
-        </a>
-      ),
+      render: (_, record) => <span>{record.status ? '启动' : '未弃用'}</span>,
     },
     // {
     //   title: '套餐金额',
@@ -270,6 +269,7 @@ function App() {
           columns={columns}
           dataSource={list}
           loading={loading}
+          scroll={{ x: 'max-content' }}
           pagination={{
             ...pagination,
             onChange: (page: number) => {

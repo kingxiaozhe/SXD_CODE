@@ -38,7 +38,6 @@ function App() {
       pageSize: 10,
     });
     const data = response.data || { list: [], total: 0 };
-
     setList(data.list || []);
     setPagination({
       ...pagination,
@@ -164,6 +163,7 @@ function App() {
       title: '序号',
       dataIndex: 'index',
       width: 80,
+      fixed: 'left', // 将该列固定在左侧
       render: (_, record, index) => <>{(pagination.current - 1) * pagination.pageSize + index + 1}</>,
     },
     {
@@ -174,6 +174,12 @@ function App() {
           {record.subOrderNo}
         </a>
       ),
+      fixed: 'left', // 将该列固定在左侧
+    },
+    {
+      title: '套餐名',
+      dataIndex: 'packageName',
+      fixed: 'left', // 将该列固定在左侧
     },
     {
       title: '设备号',
@@ -181,22 +187,19 @@ function App() {
     },
     {
       title: '开始时间',
-      dataIndex: 'orderStartDate',
-      render: (_, record) => <p>{record.orderStartDate || '--'}</p>,
+      dataIndex: 'orderDate',
+      render: (_, record) => <p>{record.orderDate || '--'}</p>,
     },
     {
       title: '结束时间',
-      dataIndex: 'orderEndDate',
-      render: (_, record) => <p>{record.orderEndDate || '--'}</p>,
+      dataIndex: 'successTime',
+      render: (_, record) => <p>{record.successTime || '--'}</p>,
     },
     {
       title: '支付模式',
       dataIndex: 'payModeName',
     },
-    {
-      title: '套餐名',
-      dataIndex: 'packageName',
-    },
+
     {
       title: '订单来源',
       dataIndex: 'sourceName',
@@ -270,6 +273,7 @@ function App() {
           columns={columns}
           dataSource={list}
           loading={loading}
+          scroll={{ x: 'max-content' }}
           pagination={{
             ...pagination,
             onChange: (page: number) => {
