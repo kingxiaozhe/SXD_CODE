@@ -46,6 +46,7 @@ type SectionProps = PropsWithChildren<{
 
 function Section({ children, title }: SectionProps): JSX.Element {
   const isDarkMode = useColorScheme() === "dark";
+  const { width } = Dimensions.get("window");
   return (
     <View style={styles.sectionContainer}>
       <Text
@@ -71,13 +72,14 @@ function Section({ children, title }: SectionProps): JSX.Element {
     </View>
   );
 }
-
+const { width } = Dimensions.get("window");
 function App(): JSX.Element {
   const [appState, setAppState] = useState<String>(AppState.currentState);
   const isDarkMode = useColorScheme() === "dark";
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [password, setPassword] = useState("");
   const [deviceNo, setDeviceNo] = useState(10001);
+  const [mobile, setMobile] = useState(10001);
   const [qrCodeDataUrl, setQrCodeDataUrl] = useState("");
   const DOMAIN_URL = "https://www.sharesingk.com";
   const { width } = Dimensions.get("window");
@@ -101,13 +103,11 @@ function App(): JSX.Element {
     },
     containerView: {
       flexDirection: "row", // 设置子元素为水平排列
-      marginTop: 65,
     },
     block: {
       flex: 1, // 平均分配容器的空间
       justifyContent: "center", // 垂直居中
       alignItems: "center", // 水平居中
-      height: 50,
       borderWidth: 0, // 可选的边框，让每个块看起来更清晰
       borderColor: "#ddd",
     },
@@ -146,7 +146,7 @@ function App(): JSX.Element {
     },
     textFont: {
       color: "white",
-      fontSize: width * 0.03,
+      fontSize: width * 0.025,
     },
     square: {
       width: width * 0.25,
@@ -154,6 +154,13 @@ function App(): JSX.Element {
       borderRadius: 20,
       justifyContent: "center", // 垂直居中
       alignItems: "center", // 水平居中
+      display: "flex",
+    },
+    viewCenter: {
+      alignItems: "center",
+      height: 100,
+      marginTop: 50,
+      marginBottom: 50,
     },
     triggerText: {
       fontSize: 18,
@@ -257,6 +264,7 @@ function App(): JSX.Element {
       .then((response) => {
         // Alert.alert(response.data.data.id);
         setDeviceNo(response.data.data.id || 101010);
+        setMobile(response.data.data.mobile || 101010);
         urlToEncodeFn(response.data.data.id);
         console.log(`Successfully registered${response}`);
       })
@@ -306,7 +314,7 @@ function App(): JSX.Element {
   const imageStyle = {
     width: width * 0.15,
     height: width * 0.15,
-    marginTop: 35,
+    marginTop: 55,
     flex: 1,
   };
   useEffect(() => {
@@ -377,7 +385,7 @@ function App(): JSX.Element {
             >
               <Text style={styles.textFont}>设备编号：{deviceNo}</Text>
             </TouchableWithoutFeedback>
-            <Button title="Disable Home Button" onPress={disableHomeButton} />
+            {/* <Button title="Disable Home Button" onPress={disableHomeButton} /> */}
             <Modal
               visible={isModalVisible}
               transparent={true}
@@ -407,11 +415,7 @@ function App(): JSX.Element {
             </Modal>
           </View>
         </View>
-        <View
-          style={{
-            alignItems: "center",
-          }}
-        >
+        <View style={styles.viewCenter}>
           <View style={styles.square}>
             <Image
               source={{ uri: qrCodeDataUrl || "" }}
@@ -419,16 +423,13 @@ function App(): JSX.Element {
               resizeMode="contain"
               v-if="qrCodeDataUrl"
             />
-            {/* <QRCode
-              value={urlToEncode}
-              size={200} // 设置二维码的尺寸
-            /> */}
           </View>
-          <Section title={"联系热线: 13333333333"}>
-            {/* <ReloadInstructions /> */}
-          </Section>
+
           {/* <Button title="Linking" onPress={_onPress} /> */}
         </View>
+        <Section title={`联系热线: ${mobile}`}>
+          {/* <ReloadInstructions /> */}
+        </Section>
       </ImageBackground>
     </SafeAreaView>
   );
@@ -442,7 +443,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   sectionTitle: {
-    fontSize: 24,
+    fontSize: width * 0.03,
     fontWeight: "600",
     textAlign: "right",
     float: "right",

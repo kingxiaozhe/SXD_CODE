@@ -28,125 +28,128 @@
 16    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 16-->/Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/AndroidManifest.xml:8:5-77
 16-->/Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/AndroidManifest.xml:8:22-75
-17    <!-- Required by older versions of Google Play services to create IID tokens -->
-18    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-18-->[com.google.android.gms:play-services-iid:17.0.0] /Users/wanghao/.gradle/caches/transforms-3/d23697d3ddc319769c3d2a6565d52bbc/transformed/jetified-play-services-iid-17.0.0/AndroidManifest.xml:23:5-82
-18-->[com.google.android.gms:play-services-iid:17.0.0] /Users/wanghao/.gradle/caches/transforms-3/d23697d3ddc319769c3d2a6565d52bbc/transformed/jetified-play-services-iid-17.0.0/AndroidManifest.xml:23:22-79
-19    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
-19-->[com.android.installreferrer:installreferrer:1.1.2] /Users/wanghao/.gradle/caches/transforms-3/7159fdde894990131f3ba6437117d8d3/transformed/jetified-installreferrer-1.1.2/AndroidManifest.xml:9:5-110
-19-->[com.android.installreferrer:installreferrer:1.1.2] /Users/wanghao/.gradle/caches/transforms-3/7159fdde894990131f3ba6437117d8d3/transformed/jetified-installreferrer-1.1.2/AndroidManifest.xml:9:22-107
-20
-21    <application
-21-->/Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/AndroidManifest.xml:10:5-29:19
-22        android:name="com.rncode.MainApplication"
-22-->/Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/AndroidManifest.xml:11:7-38
-23        android:allowBackup="false"
-23-->/Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/AndroidManifest.xml:15:7-34
-24        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-24-->[androidx.core:core:1.7.0] /Users/wanghao/.gradle/caches/transforms-3/75e4635b66fa4e4e84e71b52579837ce/transformed/core-1.7.0/AndroidManifest.xml:24:18-86
-25        android:icon="@mipmap/ic_launcher"
-25-->/Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/AndroidManifest.xml:13:7-41
-26        android:label="@string/app_name"
-26-->/Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/AndroidManifest.xml:12:7-39
-27        android:roundIcon="@mipmap/ic_launcher_round"
-27-->/Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/AndroidManifest.xml:14:7-52
-28        android:theme="@style/AppTheme" >
-28-->/Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/AndroidManifest.xml:16:7-38
-29        <activity
-29-->/Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/AndroidManifest.xml:17:7-28:18
-30            android:name="com.rncode.MainActivity"
-30-->/Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/AndroidManifest.xml:18:9-37
-31            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|uiMode"
-31-->/Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/AndroidManifest.xml:20:9-118
-32            android:exported="true"
-32-->/Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/AndroidManifest.xml:23:9-32
-33            android:label="@string/app_name"
-33-->/Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/AndroidManifest.xml:19:9-41
-34            android:launchMode="singleTask"
-34-->/Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/AndroidManifest.xml:21:9-40
-35            android:windowSoftInputMode="adjustResize" >
-35-->/Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/AndroidManifest.xml:22:9-51
-36            <intent-filter>
-36-->/Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/AndroidManifest.xml:24:9-27:25
-37                <action android:name="android.intent.action.MAIN" />
-37-->/Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/AndroidManifest.xml:25:13-65
-37-->/Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/AndroidManifest.xml:25:21-62
-38
-39                <category android:name="android.intent.category.LAUNCHER" />
-39-->/Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/AndroidManifest.xml:26:13-73
-39-->/Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/AndroidManifest.xml:26:23-70
-40            </intent-filter>
-41        </activity>
-42
-43        <service
-43-->[:react-native-send-intent] /Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/node_modules/react-native-send-intent/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:8:9-10:39
-44            android:name="com.burnweb.rnsendintent.RNSendIntentModule"
-44-->[:react-native-send-intent] /Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/node_modules/react-native-send-intent/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:9:13-71
-45            android:exported="true" />
-45-->[:react-native-send-intent] /Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/node_modules/react-native-send-intent/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:10:13-36
-46
-47        <provider
-47-->[:react-native-send-intent] /Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/node_modules/react-native-send-intent/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:12:9-20:20
-48            android:name="com.burnweb.rnsendintent.FileProvider"
-48-->[:react-native-send-intent] /Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/node_modules/react-native-send-intent/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:13:13-65
-49            android:authorities="com.rncode.fileprovider"
-49-->[:react-native-send-intent] /Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/node_modules/react-native-send-intent/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:14:13-64
-50            android:exported="false"
-50-->[:react-native-send-intent] /Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/node_modules/react-native-send-intent/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:15:13-37
-51            android:grantUriPermissions="true" >
-51-->[:react-native-send-intent] /Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/node_modules/react-native-send-intent/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:16:13-47
-52            <meta-data
-52-->[:react-native-send-intent] /Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/node_modules/react-native-send-intent/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:17:13-19:54
-53                android:name="android.support.FILE_PROVIDER_PATHS"
-53-->[:react-native-send-intent] /Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/node_modules/react-native-send-intent/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:18:17-67
-54                android:resource="@xml/file_paths" />
-54-->[:react-native-send-intent] /Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/node_modules/react-native-send-intent/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:19:17-51
-55        </provider>
-56
-57        <activity
-57-->[com.google.android.gms:play-services-base:17.0.0] /Users/wanghao/.gradle/caches/transforms-3/5b96e62b05f95da8d3a5ab6208c82b4e/transformed/jetified-play-services-base-17.0.0/AndroidManifest.xml:23:9-26:75
-58            android:name="com.google.android.gms.common.api.GoogleApiActivity"
-58-->[com.google.android.gms:play-services-base:17.0.0] /Users/wanghao/.gradle/caches/transforms-3/5b96e62b05f95da8d3a5ab6208c82b4e/transformed/jetified-play-services-base-17.0.0/AndroidManifest.xml:24:13-79
-59            android:exported="false"
-59-->[com.google.android.gms:play-services-base:17.0.0] /Users/wanghao/.gradle/caches/transforms-3/5b96e62b05f95da8d3a5ab6208c82b4e/transformed/jetified-play-services-base-17.0.0/AndroidManifest.xml:25:13-37
-60            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-60-->[com.google.android.gms:play-services-base:17.0.0] /Users/wanghao/.gradle/caches/transforms-3/5b96e62b05f95da8d3a5ab6208c82b4e/transformed/jetified-play-services-base-17.0.0/AndroidManifest.xml:26:13-72
-61
-62        <meta-data
-62-->[com.google.android.gms:play-services-basement:17.0.0] /Users/wanghao/.gradle/caches/transforms-3/8ba0bd3b0a22dcecb9dd228f042440f6/transformed/jetified-play-services-basement-17.0.0/AndroidManifest.xml:23:9-25:69
-63            android:name="com.google.android.gms.version"
-63-->[com.google.android.gms:play-services-basement:17.0.0] /Users/wanghao/.gradle/caches/transforms-3/8ba0bd3b0a22dcecb9dd228f042440f6/transformed/jetified-play-services-basement-17.0.0/AndroidManifest.xml:24:13-58
-64            android:value="@integer/google_play_services_version" />
-64-->[com.google.android.gms:play-services-basement:17.0.0] /Users/wanghao/.gradle/caches/transforms-3/8ba0bd3b0a22dcecb9dd228f042440f6/transformed/jetified-play-services-basement-17.0.0/AndroidManifest.xml:25:13-66
-65
-66        <provider
-66-->[androidx.emoji2:emoji2:1.0.0] /Users/wanghao/.gradle/caches/transforms-3/223146ef33e3aa619e8b04649706e145/transformed/jetified-emoji2-1.0.0/AndroidManifest.xml:26:9-34:20
-67            android:name="androidx.startup.InitializationProvider"
-67-->[androidx.emoji2:emoji2:1.0.0] /Users/wanghao/.gradle/caches/transforms-3/223146ef33e3aa619e8b04649706e145/transformed/jetified-emoji2-1.0.0/AndroidManifest.xml:27:13-67
-68            android:authorities="com.rncode.androidx-startup"
-68-->[androidx.emoji2:emoji2:1.0.0] /Users/wanghao/.gradle/caches/transforms-3/223146ef33e3aa619e8b04649706e145/transformed/jetified-emoji2-1.0.0/AndroidManifest.xml:28:13-68
-69            android:exported="false" >
-69-->[androidx.emoji2:emoji2:1.0.0] /Users/wanghao/.gradle/caches/transforms-3/223146ef33e3aa619e8b04649706e145/transformed/jetified-emoji2-1.0.0/AndroidManifest.xml:29:13-37
-70            <meta-data
-70-->[androidx.emoji2:emoji2:1.0.0] /Users/wanghao/.gradle/caches/transforms-3/223146ef33e3aa619e8b04649706e145/transformed/jetified-emoji2-1.0.0/AndroidManifest.xml:31:13-33:52
-71                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-71-->[androidx.emoji2:emoji2:1.0.0] /Users/wanghao/.gradle/caches/transforms-3/223146ef33e3aa619e8b04649706e145/transformed/jetified-emoji2-1.0.0/AndroidManifest.xml:32:17-75
-72                android:value="androidx.startup" />
-72-->[androidx.emoji2:emoji2:1.0.0] /Users/wanghao/.gradle/caches/transforms-3/223146ef33e3aa619e8b04649706e145/transformed/jetified-emoji2-1.0.0/AndroidManifest.xml:33:17-49
-73            <meta-data
-73-->[androidx.lifecycle:lifecycle-process:2.4.0] /Users/wanghao/.gradle/caches/transforms-3/d5d05479173d466a6bd0989b3b3e5ef4/transformed/jetified-lifecycle-process-2.4.0/AndroidManifest.xml:31:13-33:52
-74                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-74-->[androidx.lifecycle:lifecycle-process:2.4.0] /Users/wanghao/.gradle/caches/transforms-3/d5d05479173d466a6bd0989b3b3e5ef4/transformed/jetified-lifecycle-process-2.4.0/AndroidManifest.xml:32:17-78
-75                android:value="androidx.startup" />
-75-->[androidx.lifecycle:lifecycle-process:2.4.0] /Users/wanghao/.gradle/caches/transforms-3/d5d05479173d466a6bd0989b3b3e5ef4/transformed/jetified-lifecycle-process-2.4.0/AndroidManifest.xml:33:17-49
-76        </provider>
-77
-78        <meta-data
-78-->[com.facebook.soloader:soloader:0.10.5] /Users/wanghao/.gradle/caches/transforms-3/ec3312a013bd7d8a70466a1977a1dba4/transformed/jetified-soloader-0.10.5/AndroidManifest.xml:12:9-14:37
-79            android:name="com.facebook.soloader.enabled"
-79-->[com.facebook.soloader:soloader:0.10.5] /Users/wanghao/.gradle/caches/transforms-3/ec3312a013bd7d8a70466a1977a1dba4/transformed/jetified-soloader-0.10.5/AndroidManifest.xml:13:13-57
-80            android:value="false" />
-80-->[com.facebook.soloader:soloader:0.10.5] /Users/wanghao/.gradle/caches/transforms-3/ec3312a013bd7d8a70466a1977a1dba4/transformed/jetified-soloader-0.10.5/AndroidManifest.xml:14:13-34
-81    </application>
-82
-83</manifest>
+17    <uses-permission android:name="android.permission.REORDER_TASKS" />
+17-->/Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/AndroidManifest.xml:9:5-71
+17-->/Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/AndroidManifest.xml:9:22-69
+18    <!-- Required by older versions of Google Play services to create IID tokens -->
+19    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+19-->[com.google.android.gms:play-services-iid:17.0.0] /Users/wanghao/.gradle/caches/transforms-3/d23697d3ddc319769c3d2a6565d52bbc/transformed/jetified-play-services-iid-17.0.0/AndroidManifest.xml:23:5-82
+19-->[com.google.android.gms:play-services-iid:17.0.0] /Users/wanghao/.gradle/caches/transforms-3/d23697d3ddc319769c3d2a6565d52bbc/transformed/jetified-play-services-iid-17.0.0/AndroidManifest.xml:23:22-79
+20    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
+20-->[com.android.installreferrer:installreferrer:1.1.2] /Users/wanghao/.gradle/caches/transforms-3/7159fdde894990131f3ba6437117d8d3/transformed/jetified-installreferrer-1.1.2/AndroidManifest.xml:9:5-110
+20-->[com.android.installreferrer:installreferrer:1.1.2] /Users/wanghao/.gradle/caches/transforms-3/7159fdde894990131f3ba6437117d8d3/transformed/jetified-installreferrer-1.1.2/AndroidManifest.xml:9:22-107
+21
+22    <application
+22-->/Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/AndroidManifest.xml:12:5-31:19
+23        android:name="com.rncode.MainApplication"
+23-->/Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/AndroidManifest.xml:13:7-38
+24        android:allowBackup="false"
+24-->/Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/AndroidManifest.xml:17:7-34
+25        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+25-->[androidx.core:core:1.7.0] /Users/wanghao/.gradle/caches/transforms-3/75e4635b66fa4e4e84e71b52579837ce/transformed/core-1.7.0/AndroidManifest.xml:24:18-86
+26        android:icon="@mipmap/ic_launcher"
+26-->/Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/AndroidManifest.xml:15:7-41
+27        android:label="@string/app_name"
+27-->/Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/AndroidManifest.xml:14:7-39
+28        android:roundIcon="@mipmap/ic_launcher_round"
+28-->/Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/AndroidManifest.xml:16:7-52
+29        android:theme="@style/AppTheme" >
+29-->/Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/AndroidManifest.xml:18:7-38
+30        <activity
+30-->/Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/AndroidManifest.xml:19:7-30:18
+31            android:name="com.rncode.MainActivity"
+31-->/Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/AndroidManifest.xml:20:9-37
+32            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|uiMode"
+32-->/Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/AndroidManifest.xml:22:9-118
+33            android:exported="true"
+33-->/Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/AndroidManifest.xml:25:9-32
+34            android:label="@string/app_name"
+34-->/Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/AndroidManifest.xml:21:9-41
+35            android:launchMode="singleTask"
+35-->/Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/AndroidManifest.xml:23:9-40
+36            android:windowSoftInputMode="adjustResize" >
+36-->/Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/AndroidManifest.xml:24:9-51
+37            <intent-filter>
+37-->/Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/AndroidManifest.xml:26:9-29:25
+38                <action android:name="android.intent.action.MAIN" />
+38-->/Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/AndroidManifest.xml:27:13-65
+38-->/Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/AndroidManifest.xml:27:21-62
+39
+40                <category android:name="android.intent.category.LAUNCHER" />
+40-->/Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/AndroidManifest.xml:28:13-73
+40-->/Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/android/app/src/main/AndroidManifest.xml:28:23-70
+41            </intent-filter>
+42        </activity>
+43
+44        <service
+44-->[:react-native-send-intent] /Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/node_modules/react-native-send-intent/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:8:9-10:39
+45            android:name="com.burnweb.rnsendintent.RNSendIntentModule"
+45-->[:react-native-send-intent] /Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/node_modules/react-native-send-intent/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:9:13-71
+46            android:exported="true" />
+46-->[:react-native-send-intent] /Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/node_modules/react-native-send-intent/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:10:13-36
+47
+48        <provider
+48-->[:react-native-send-intent] /Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/node_modules/react-native-send-intent/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:12:9-20:20
+49            android:name="com.burnweb.rnsendintent.FileProvider"
+49-->[:react-native-send-intent] /Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/node_modules/react-native-send-intent/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:13:13-65
+50            android:authorities="com.rncode.fileprovider"
+50-->[:react-native-send-intent] /Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/node_modules/react-native-send-intent/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:14:13-64
+51            android:exported="false"
+51-->[:react-native-send-intent] /Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/node_modules/react-native-send-intent/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:15:13-37
+52            android:grantUriPermissions="true" >
+52-->[:react-native-send-intent] /Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/node_modules/react-native-send-intent/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:16:13-47
+53            <meta-data
+53-->[:react-native-send-intent] /Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/node_modules/react-native-send-intent/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:17:13-19:54
+54                android:name="android.support.FILE_PROVIDER_PATHS"
+54-->[:react-native-send-intent] /Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/node_modules/react-native-send-intent/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:18:17-67
+55                android:resource="@xml/file_paths" />
+55-->[:react-native-send-intent] /Users/wanghao/MyCode/sxd/SXD_CODE/device-sing-app/node_modules/react-native-send-intent/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:19:17-51
+56        </provider>
+57
+58        <activity
+58-->[com.google.android.gms:play-services-base:17.0.0] /Users/wanghao/.gradle/caches/transforms-3/5b96e62b05f95da8d3a5ab6208c82b4e/transformed/jetified-play-services-base-17.0.0/AndroidManifest.xml:23:9-26:75
+59            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+59-->[com.google.android.gms:play-services-base:17.0.0] /Users/wanghao/.gradle/caches/transforms-3/5b96e62b05f95da8d3a5ab6208c82b4e/transformed/jetified-play-services-base-17.0.0/AndroidManifest.xml:24:13-79
+60            android:exported="false"
+60-->[com.google.android.gms:play-services-base:17.0.0] /Users/wanghao/.gradle/caches/transforms-3/5b96e62b05f95da8d3a5ab6208c82b4e/transformed/jetified-play-services-base-17.0.0/AndroidManifest.xml:25:13-37
+61            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+61-->[com.google.android.gms:play-services-base:17.0.0] /Users/wanghao/.gradle/caches/transforms-3/5b96e62b05f95da8d3a5ab6208c82b4e/transformed/jetified-play-services-base-17.0.0/AndroidManifest.xml:26:13-72
+62
+63        <meta-data
+63-->[com.google.android.gms:play-services-basement:17.0.0] /Users/wanghao/.gradle/caches/transforms-3/8ba0bd3b0a22dcecb9dd228f042440f6/transformed/jetified-play-services-basement-17.0.0/AndroidManifest.xml:23:9-25:69
+64            android:name="com.google.android.gms.version"
+64-->[com.google.android.gms:play-services-basement:17.0.0] /Users/wanghao/.gradle/caches/transforms-3/8ba0bd3b0a22dcecb9dd228f042440f6/transformed/jetified-play-services-basement-17.0.0/AndroidManifest.xml:24:13-58
+65            android:value="@integer/google_play_services_version" />
+65-->[com.google.android.gms:play-services-basement:17.0.0] /Users/wanghao/.gradle/caches/transforms-3/8ba0bd3b0a22dcecb9dd228f042440f6/transformed/jetified-play-services-basement-17.0.0/AndroidManifest.xml:25:13-66
+66
+67        <provider
+67-->[androidx.emoji2:emoji2:1.0.0] /Users/wanghao/.gradle/caches/transforms-3/223146ef33e3aa619e8b04649706e145/transformed/jetified-emoji2-1.0.0/AndroidManifest.xml:26:9-34:20
+68            android:name="androidx.startup.InitializationProvider"
+68-->[androidx.emoji2:emoji2:1.0.0] /Users/wanghao/.gradle/caches/transforms-3/223146ef33e3aa619e8b04649706e145/transformed/jetified-emoji2-1.0.0/AndroidManifest.xml:27:13-67
+69            android:authorities="com.rncode.androidx-startup"
+69-->[androidx.emoji2:emoji2:1.0.0] /Users/wanghao/.gradle/caches/transforms-3/223146ef33e3aa619e8b04649706e145/transformed/jetified-emoji2-1.0.0/AndroidManifest.xml:28:13-68
+70            android:exported="false" >
+70-->[androidx.emoji2:emoji2:1.0.0] /Users/wanghao/.gradle/caches/transforms-3/223146ef33e3aa619e8b04649706e145/transformed/jetified-emoji2-1.0.0/AndroidManifest.xml:29:13-37
+71            <meta-data
+71-->[androidx.emoji2:emoji2:1.0.0] /Users/wanghao/.gradle/caches/transforms-3/223146ef33e3aa619e8b04649706e145/transformed/jetified-emoji2-1.0.0/AndroidManifest.xml:31:13-33:52
+72                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+72-->[androidx.emoji2:emoji2:1.0.0] /Users/wanghao/.gradle/caches/transforms-3/223146ef33e3aa619e8b04649706e145/transformed/jetified-emoji2-1.0.0/AndroidManifest.xml:32:17-75
+73                android:value="androidx.startup" />
+73-->[androidx.emoji2:emoji2:1.0.0] /Users/wanghao/.gradle/caches/transforms-3/223146ef33e3aa619e8b04649706e145/transformed/jetified-emoji2-1.0.0/AndroidManifest.xml:33:17-49
+74            <meta-data
+74-->[androidx.lifecycle:lifecycle-process:2.4.0] /Users/wanghao/.gradle/caches/transforms-3/d5d05479173d466a6bd0989b3b3e5ef4/transformed/jetified-lifecycle-process-2.4.0/AndroidManifest.xml:31:13-33:52
+75                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+75-->[androidx.lifecycle:lifecycle-process:2.4.0] /Users/wanghao/.gradle/caches/transforms-3/d5d05479173d466a6bd0989b3b3e5ef4/transformed/jetified-lifecycle-process-2.4.0/AndroidManifest.xml:32:17-78
+76                android:value="androidx.startup" />
+76-->[androidx.lifecycle:lifecycle-process:2.4.0] /Users/wanghao/.gradle/caches/transforms-3/d5d05479173d466a6bd0989b3b3e5ef4/transformed/jetified-lifecycle-process-2.4.0/AndroidManifest.xml:33:17-49
+77        </provider>
+78
+79        <meta-data
+79-->[com.facebook.soloader:soloader:0.10.5] /Users/wanghao/.gradle/caches/transforms-3/ec3312a013bd7d8a70466a1977a1dba4/transformed/jetified-soloader-0.10.5/AndroidManifest.xml:12:9-14:37
+80            android:name="com.facebook.soloader.enabled"
+80-->[com.facebook.soloader:soloader:0.10.5] /Users/wanghao/.gradle/caches/transforms-3/ec3312a013bd7d8a70466a1977a1dba4/transformed/jetified-soloader-0.10.5/AndroidManifest.xml:13:13-57
+81            android:value="false" />
+81-->[com.facebook.soloader:soloader:0.10.5] /Users/wanghao/.gradle/caches/transforms-3/ec3312a013bd7d8a70466a1977a1dba4/transformed/jetified-soloader-0.10.5/AndroidManifest.xml:14:13-34
+82    </application>
+83
+84</manifest>

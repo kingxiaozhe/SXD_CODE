@@ -97,7 +97,7 @@ public class SendModule extends ReactContextBaseJavaModule {
             try {
                 Process process = Runtime.getRuntime().exec("am start -n " + packageName);
                 Thread.sleep(delay);
-                Runtime.getRuntime().exec("am force-stop " + packageName);
+                Runtime.getRuntime().exec("am broadcast -a android.zx.intent.action.KILL");
             } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }

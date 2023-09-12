@@ -1,54 +1,58 @@
 [
     {
-        "merged": "com.rncode.app-merged_res-24:/drawable-mdpi_node_modules_reactnative_libraries_newappscreen_components_logo.png.flat",
-        "source": "com.rncode.app-res-18:/drawable-mdpi/node_modules_reactnative_libraries_newappscreen_components_logo.png"
+        "merged": "/Users/wanghao/.gradle/daemon/8.0.1/com.rncode.app-merged_res-24:/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "/Users/wanghao/.gradle/daemon/8.0.1/com.rncode.app-main-25:/mipmap-hdpi/ic_launcher.png"
     },
     {
-        "merged": "com.rncode.app-merged_res-24:/mipmap-xxxhdpi_ic_launcher_round.png.flat",
-        "source": "com.rncode.app-main-25:/mipmap-xxxhdpi/ic_launcher_round.png"
+        "merged": "/Users/wanghao/.gradle/daemon/8.0.1/com.rncode.app-merged_res-24:/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "/Users/wanghao/.gradle/daemon/8.0.1/com.rncode.app-main-25:/mipmap-mdpi/ic_launcher.png"
     },
     {
-        "merged": "com.rncode.app-merged_res-24:/mipmap-hdpi_ic_launcher.png.flat",
-        "source": "com.rncode.app-main-25:/mipmap-hdpi/ic_launcher.png"
+        "merged": "/Users/wanghao/.gradle/daemon/8.0.1/com.rncode.app-merged_res-24:/drawable-mdpi_assets_pic_hd_new.jpg.flat",
+        "source": "/Users/wanghao/.gradle/daemon/8.0.1/com.rncode.app-res-18:/drawable-mdpi/assets_pic_hd_new.jpg"
     },
     {
-        "merged": "com.rncode.app-merged_res-24:/drawable-mdpi_assets_pic_hd_new.jpg.flat",
-        "source": "com.rncode.app-res-18:/drawable-mdpi/assets_pic_hd_new.jpg"
+        "merged": "/Users/wanghao/.gradle/daemon/8.0.1/com.rncode.app-merged_res-24:/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "/Users/wanghao/.gradle/daemon/8.0.1/com.rncode.app-main-25:/mipmap-xhdpi/ic_launcher.png"
     },
     {
-        "merged": "com.rncode.app-merged_res-24:/drawable_rn_edit_text_material.xml.flat",
-        "source": "com.rncode.app-main-25:/drawable/rn_edit_text_material.xml"
+        "merged": "/Users/wanghao/.gradle/daemon/8.0.1/com.rncode.app-merged_res-24:/drawable-mdpi_node_modules_reactnative_libraries_newappscreen_components_logo.png.flat",
+        "source": "/Users/wanghao/.gradle/daemon/8.0.1/com.rncode.app-res-18:/drawable-mdpi/node_modules_reactnative_libraries_newappscreen_components_logo.png"
     },
     {
-        "merged": "com.rncode.app-merged_res-24:/mipmap-xxxhdpi_ic_launcher.png.flat",
-        "source": "com.rncode.app-main-25:/mipmap-xxxhdpi/ic_launcher.png"
+        "merged": "/Users/wanghao/.gradle/daemon/8.0.1/com.rncode.app-merged_res-24:/drawable_rn_edit_text_material.xml.flat",
+        "source": "/Users/wanghao/.gradle/daemon/8.0.1/com.rncode.app-main-25:/drawable/rn_edit_text_material.xml"
     },
     {
-        "merged": "com.rncode.app-merged_res-24:/mipmap-xxhdpi_ic_launcher_round.png.flat",
-        "source": "com.rncode.app-main-25:/mipmap-xxhdpi/ic_launcher_round.png"
+        "merged": "/Users/wanghao/.gradle/daemon/8.0.1/com.rncode.app-merged_res-24:/mipmap-xxxhdpi_ic_launcher_round.png.flat",
+        "source": "/Users/wanghao/.gradle/daemon/8.0.1/com.rncode.app-main-25:/mipmap-xxxhdpi/ic_launcher_round.png"
     },
     {
-        "merged": "com.rncode.app-merged_res-24:/mipmap-hdpi_ic_launcher_round.png.flat",
-        "source": "com.rncode.app-main-25:/mipmap-hdpi/ic_launcher_round.png"
+        "merged": "/Users/wanghao/.gradle/daemon/8.0.1/com.rncode.app-merged_res-24:/mipmap-xxhdpi_ic_launcher_round.png.flat",
+        "source": "/Users/wanghao/.gradle/daemon/8.0.1/com.rncode.app-main-25:/mipmap-xxhdpi/ic_launcher_round.png"
     },
     {
-        "merged": "com.rncode.app-merged_res-24:/mipmap-xhdpi_ic_launcher.png.flat",
-        "source": "com.rncode.app-main-25:/mipmap-xhdpi/ic_launcher.png"
+        "merged": "/Users/wanghao/.gradle/daemon/8.0.1/com.rncode.app-merged_res-24:/mipmap-xhdpi_ic_launcher_round.png.flat",
+        "source": "/Users/wanghao/.gradle/daemon/8.0.1/com.rncode.app-main-25:/mipmap-xhdpi/ic_launcher_round.png"
     },
     {
-        "merged": "com.rncode.app-merged_res-24:/mipmap-xhdpi_ic_launcher_round.png.flat",
-        "source": "com.rncode.app-main-25:/mipmap-xhdpi/ic_launcher_round.png"
+        "merged": "/Users/wanghao/.gradle/daemon/8.0.1/com.rncode.app-merged_res-24:/mipmap-mdpi_ic_launcher_round.png.flat",
+        "source": "/Users/wanghao/.gradle/daemon/8.0.1/com.rncode.app-main-25:/mipmap-mdpi/ic_launcher_round.png"
     },
     {
-        "merged": "com.rncode.app-merged_res-24:/mipmap-mdpi_ic_launcher.png.flat",
-        "source": "com.rncode.app-main-25:/mipmap-mdpi/ic_launcher.png"
+        "merged": "/Users/wanghao/.gradle/daemon/8.0.1/com.rncode.app-merged_res-24:/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "/Users/wanghao/.gradle/daemon/8.0.1/com.rncode.app-main-25:/mipmap-xxhdpi/ic_launcher.png"
     },
     {
-        "merged": "com.rncode.app-merged_res-24:/mipmap-mdpi_ic_launcher_round.png.flat",
-        "source": "com.rncode.app-main-25:/mipmap-mdpi/ic_launcher_round.png"
+        "merged": "/Users/wanghao/.gradle/daemon/8.0.1/com.rncode.app-merged_res-24:/mipmap-hdpi_ic_launcher_round.png.flat",
+        "source": "/Users/wanghao/.gradle/daemon/8.0.1/com.rncode.app-main-25:/mipmap-hdpi/ic_launcher_round.png"
     },
     {
-        "merged": "com.rncode.app-merged_res-24:/mipmap-xxhdpi_ic_launcher.png.flat",
-        "source": "com.rncode.app-main-25:/mipmap-xxhdpi/ic_launcher.png"
+        "merged": "/Users/wanghao/.gradle/daemon/8.0.1/com.rncode.app-merged_res-24:/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "/Users/wanghao/.gradle/daemon/8.0.1/com.rncode.app-main-25:/mipmap-xxxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.rncode.app-merged_res-24:/xml_device_admin_receiver.xml.flat",
+        "source": "com.rncode.app-main-25:/xml/device_admin_receiver.xml"
     }
 ]
