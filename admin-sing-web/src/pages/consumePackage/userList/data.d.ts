@@ -26,6 +26,7 @@ export interface TableListItem {
   secret?: string;
   mobile?: string;
   roleName?: string;
+  mark?: string;
 }
 
 export interface IResponseData {

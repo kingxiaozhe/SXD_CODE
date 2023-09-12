@@ -80,12 +80,13 @@ function App() {
 
     // const response: ResponseData<TableListItem> = await detailData(id.toString());
     // const { data } = response;
-    const { name, mobile, roleName } = list.filter((item: TableListItem) => item.id === id)[0];
+    const { name, mobile, roleName, mark } = list.filter((item: TableListItem) => item.id === id)[0];
     setUpdateData({
       id,
       name,
       mobile,
       roleName,
+      mark,
     });
     setUpdateFormVisible(true);
 
@@ -119,11 +120,11 @@ function App() {
 
     // const response: ResponseData<TableListItem> = await detailData(id.toString());
     // const { data } = response;
-    const { id: filterId, name } = list.filter((item: TableListItem) => item.id === id)[0];
-    debugger;
+    const { id: filterId, name, mark } = list.filter((item: TableListItem) => item.id === id)[0];
     setUpdateData({
       id: filterId,
       name,
+      mark,
     });
     setCreateFormVisible(true);
 

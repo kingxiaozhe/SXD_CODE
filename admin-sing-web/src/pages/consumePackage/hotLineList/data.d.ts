@@ -27,6 +27,7 @@ export interface TableListItem {
   mobile?: string;
   roleName?: string;
   code?: string;
+  mark?: string;
 }
 
 export interface IResponseData {

@@ -21,6 +21,7 @@ const UpdateForm: React.FC<UpdateFormPorps> = (props) => {
     id: values.id || 0,
     name: values.name || '',
     mobile: values.mobile || '',
+    mark: values.mark || '',
   };
 
   const [form] = Form.useForm();
@@ -57,7 +58,7 @@ const UpdateForm: React.FC<UpdateFormPorps> = (props) => {
         initialValues={{
           name: formVals.name,
           mobile: formVals.mobile,
-          // type: formVals.type,
+          mark: formVals.mark,
         }}
       >
         <Form.Item
@@ -100,7 +101,24 @@ const UpdateForm: React.FC<UpdateFormPorps> = (props) => {
         >
           <Input placeholder='请输入手机号码' />
         </Form.Item>
-
+        <Form.Item
+          label='备注'
+          name='mark'
+          rules={[
+            {
+              required: true,
+              validator: async (rule, value) => {
+                if (value === '' || !value) {
+                  throw new Error('请输入名称');
+                } else if (value.length > 50) {
+                  throw new Error('长度不能大于50个字');
+                }
+              },
+            },
+          ]}
+        >
+          <Input placeholder='请输入备注' />
+        </Form.Item>
         {/* <Form.Item
           label='金额'
           name='amount'

@@ -80,11 +80,12 @@ function App() {
 
     // const response: ResponseData<TableListItem> = await detailData(id.toString());
     // const { data } = response;
-    const { mobile, name } = list.filter((item: TableListItem) => item.code === code)[0];
+    const { mobile, name, mark } = list.filter((item: TableListItem) => item.code === code)[0];
     setUpdateData({
       code,
       mobile,
       name,
+      mark,
     });
     setUpdateFormVisible(true);
 
