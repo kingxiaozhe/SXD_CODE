@@ -202,6 +202,10 @@ function App() {
       title: '用户角色',
       dataIndex: 'roleName',
     },
+    {
+      title: '备注',
+      dataIndex: 'mark',
+    },
     // {
     //   title: '套餐金额',
     //   dataIndex: 'amount',

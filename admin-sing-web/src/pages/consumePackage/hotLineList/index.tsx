@@ -148,6 +148,10 @@ function App() {
       dataIndex: 'mobile',
     },
     {
+      title: '备注',
+      dataIndex: 'mark',
+    },
+    {
       title: '操作',
       key: 'action',
       width: 200,
